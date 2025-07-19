@@ -16,6 +16,7 @@ const js = require("@eslint/js");
 const {
     FlatCompat,
 } = require("@eslint/eslintrc");
+const path = require("path");
 
 const compat = new FlatCompat({
     baseDirectory: __dirname,
@@ -56,6 +57,10 @@ module.exports = defineConfig([{
             version: "detect",
         },
 
+        tailwindcss: {
+            config: path.join(__dirname, './tailwind.config.ts'),
+        },
+
         "import/resolver": {
             typescript: {},
         },
@@ -76,6 +81,7 @@ module.exports = defineConfig([{
     )),
 
     "rules": {
+
         "import/no-unresolved": "off",
 
         "import/no-restricted-paths": ["error", {
