@@ -1,33 +1,26 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-interface InterestModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  message: string;
-}
+import NewLeadForm from "./newLeadForm";
 
-export function InterestModal({ children }: { children: React.ReactNode }) {
+export function NewLeadModal({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog modal open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="rounded-xl border border-gray-700 bg-gray-900 p-6 text-gray-50 sm:max-w-[475px]">
+      <DialogContent className="max-h-[80vh] overflow-y-scroll rounded-xl border border-gray-700 bg-gray-900 p-6 text-gray-50 sm:max-w-[475px]">
         <DialogHeader className="text-center">
           <DialogTitle className="mb-2 text-3xl font-bold text-white">
             Manifeste seu Interesse
@@ -36,7 +29,7 @@ export function InterestModal({ children }: { children: React.ReactNode }) {
             Entraremos em contato quando mais vagas estiverem disponíveis.
           </DialogDescription>
         </DialogHeader>
-        
+        <NewLeadForm setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   );

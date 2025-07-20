@@ -39,6 +39,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/utils/newFeature.js",
+    "tailwind.config.js",
   ],
   "exclude": [
     "node_modules"

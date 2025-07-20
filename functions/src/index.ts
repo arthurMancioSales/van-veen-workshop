@@ -7,16 +7,14 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-import {setGlobalOptions} from "firebase-functions";
-import {initializeApp} from "firebase-admin/app";
+import { setGlobalOptions } from "firebase-functions";
 
-import {saveLead} from "./leads/saveLead"
 import { getLeads } from "./leads/getLeads";
+import { saveLead } from "./leads/saveLead";
+import { paymentWebhook } from "./payment/webhook";
+import { createTicket } from "./tickets/createTicket";
 import { getTickets } from "./tickets/getTickets";
 import { validateTicket } from "./tickets/validateTicket";
-import { createTicket } from "./tickets/createTicket";
-import { paymentWebhook } from "./payment/webhook"
-initializeApp();
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript

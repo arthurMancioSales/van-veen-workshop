@@ -58,7 +58,7 @@ module.exports = defineConfig([{
         },
 
         tailwindcss: {
-            config: path.join(__dirname, './tailwind.config.ts'),
+            config: path.resolve(__dirname, "tailwind.config.js"),
         },
 
         "import/resolver": {
@@ -99,36 +99,16 @@ module.exports = defineConfig([{
 
                 from: ["./src/features", "./src/app"],
             }, {
-                target: "./src/features/auth",
+                target: "./src/features/leads",
                 from: "./src/features",
-                except: ["./auth"],
+                except: ["./leads"],
             }, {
-                target: "./src/features/user",
+                target: "./src/features/tickets",
                 from: "./src/features",
-                except: ["./user"],
-            }, {
-                target: "./src/features/dashboard",
-                from: "./src/features",
-                except: ["./dashboard"],
-            }, {
-                target: "./src/features/olympiads",
-                from: "./src/features",
-                except: ["./olympiads"],
-            }, {
-                target: "./src/features/organization",
-                from: "./src/features",
-                except: ["./organization"],
-            }, {
-                target: "./src/features/tasks",
-                from: "./src/features",
-                except: ["./tasks"],
-            }, {
-                target: "./src/features/evaluation",
-                from: "./src/features",
-                except: ["./evaluation"],
+                except: ["./tickets"],
             }],
         }],
-
+        "tailwindcss/no-custom-classname": ["off"],
         "import/no-cycle": "error",
         "linebreak-style": ["error", "unix"],
         "react/prop-types": "off",

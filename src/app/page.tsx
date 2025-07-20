@@ -13,15 +13,17 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import PaymentModal from "@/components/paymentModal";
+import PaymentModal from "@/components/tickets/paymentModal";
 import { Button } from "@/components/ui/button";
+import { NewLeadModal } from "@/features/leads/components/newLeadModal";
+import { NewTicketModal } from "@/features/tickets/components/newTicketModal";
 
 export default function Component() {
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-gray-950 font-sans text-gray-50">
+    <div className="flex min-h-dvh flex-col bg-gray-950 font-sans text-gray-50">
       <main className="flex-1">
         {/* Seção Herói */}
-        <section className="relative flex w-full items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 to-black py-20 text-center text-white md:py-32 lg:py-48">
+        <section className="relative flex w-full items-center justify-center overflow-hidden bg-linear-to-br from-gray-900 to-black py-20 text-center text-white md:py-32 lg:py-48">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-20"
             style={{
@@ -50,10 +52,7 @@ export default function Component() {
               />
             </div>
             <div className="flex flex-col justify-center gap-4 pt-8 sm:flex-row">
-              <Button
-                asChild
-                className="inline-flex h-14 transform items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-700 px-10 text-lg font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-purple-700 hover:to-indigo-800 focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-              >
+              <Button className="inline-flex h-14 transform items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-indigo-700 px-10 text-lg font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-purple-700 hover:to-indigo-800 focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
                 <Link href="#inscricao">GARANTA A VAGA AGORA</Link>
               </Button>
               <p className="mt-2 text-sm text-gray-400">Vagas limitadas</p>
@@ -357,7 +356,7 @@ export default function Component() {
         {/* Última Chamada para Inscrição */}
         <section
           id="inscricao"
-          className="flex w-full items-center justify-center bg-gradient-to-br from-purple-700 to-indigo-900 py-16 text-center text-white md:py-28 lg:py-36"
+          className="flex w-full items-center justify-center bg-linear-to-br from-purple-700 to-indigo-900 py-16 text-center text-white md:py-28 lg:py-36"
         >
           <div className="container mx-auto max-w-5xl space-y-10 px-4 md:px-6">
             <h2 className="text-4xl leading-tight font-extrabold tracking-tight drop-shadow-lg sm:text-5xl md:text-6xl">
@@ -390,14 +389,19 @@ export default function Component() {
                 <CheckCircle2 className="h-8 w-8 text-green-300" />
                 <span>Certificado: Sim, com selo do Instituto Van Veen</span>
               </div>
-              <Button
-                asChild
-                className="inline-flex h-16 transform animate-pulse items-center justify-center rounded-full bg-yellow-400 px-12 text-2xl font-bold text-gray-950 shadow-2xl transition-all hover:scale-105 hover:bg-yellow-500 focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-900 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-              >
-                <Link href="https://mpago.li/33K7zQW" target="_blank">
-                  GARANTA A VAGA AGORA
-                </Link>
-              </Button>
+              {process.env.NEXT_PUBLIC_TICKETS_ENABLED === "1" ? (
+                <NewTicketModal>
+                  <Button className="inline-flex h-16 transform animate-pulse items-center justify-center rounded-full bg-yellow-400 px-12 text-2xl font-bold text-gray-950 shadow-2xl transition-all hover:scale-105 hover:bg-yellow-500 focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-900 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
+                    INSCREVA-SE AGORA
+                  </Button>
+                </NewTicketModal>
+              ) : (
+                <NewLeadModal>
+                  <Button className="inline-flex h-16 transform animate-pulse items-center justify-center rounded-full bg-yellow-400 px-12 text-2xl font-bold text-gray-950 shadow-2xl transition-all hover:scale-105 hover:bg-yellow-500 focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-900 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50">
+                    GARANTA A VAGA AGORA
+                  </Button>
+                </NewLeadModal>
+              )}
               <p className="text-xl font-bold text-yellow-300 drop-shadow-md">
                 Restam apenas algumas vagas!
               </p>

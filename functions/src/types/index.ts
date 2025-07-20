@@ -3,4 +3,4 @@ export type HTTPResponse<T> = {
   message: string;
   data?: T;
   error: boolean;
-}
+};

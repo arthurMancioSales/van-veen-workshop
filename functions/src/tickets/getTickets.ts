@@ -1,17 +1,19 @@
+import { collection, getDocs } from "@firebase/firestore";
+import corsLib from "cors";
 import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+
+import { db } from "../lib/firebaseClient";
 import { HTTPResponse } from "../types";
 import { Ticket } from "../types/tickets";
 
-const cors = require("cors")(
-  { 
-    // origin: 
-    //   [
-    //     "https://workshop.vanveen.com.br", 
-    //     "https://workshop.institutovanveen.com.br"
-    //   ],
-    origin: true, 
-  });
+const cors = corsLib({
+  // origin:
+  //   [
+  //     "https://workshop.vanveen.com.br",
+  //     "https://workshop.institutovanveen.com.br"
+  //   ],
+  origin: true,
+});
 
 export const getTickets = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
@@ -20,7 +22,7 @@ export const getTickets = functions.https.onRequest((req, res) => {
         status: 405,
         message: "Method not allowed",
         error: true,
-      }
+      };
       return res.status(405).send(response);
     }
 
@@ -31,24 +33,39 @@ export const getTickets = functions.https.onRequest((req, res) => {
         status: 403,
         message: "Access denied",
         error: true,
-      }
+      };
       return res.status(403).send(response);
     }
 
-    const ticketSnapshot = await admin.firestore().collection("tickets").get();
-    const tickets: Ticket[] = ticketSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data() as Omit<Ticket, 'id'>, 
-    }));
+    const ticketsRef = collection(db, "tickets");
 
-    const response: HTTPResponse<Ticket[]> = {
-      status: 200,
-      message: "Tickets retrieved successfully",
-      data: tickets,
-      error: false,
+    try {
+      const ticketSnapshot = await getDocs(ticketsRef);
+
+      const tickets: Ticket[] = ticketSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Ticket, "id">),
+      }));
+
+      const response: HTTPResponse<Ticket[]> = {
+        status: 200,
+        message: "Tickets retrieved successfully",
+        data: tickets,
+        error: false,
+      };
+
+      res.status(200).send(response);
+    } catch (error) {
+      const response: HTTPResponse<undefined> = {
+        status: 500,
+        message:
+          "Internal server error" +
+          (error instanceof Error ? `: ${error.message}` : ""),
+        error: true,
+      };
+      res.status(500).send(response);
     }
 
-    res.status(200).send(response);
     return;
   });
 });

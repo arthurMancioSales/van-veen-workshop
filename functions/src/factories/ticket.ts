@@ -1,25 +1,26 @@
-import { Ticket } from "../types/tickets";
+import { NewTicket, Ticket } from "../types/tickets";
 
 export function newTicket({
-  birthday,
+  birthdate,
   email,
   name,
   phone,
   status,
-  qrCodeToken,
   city,
-  create_at,
   singleUse,
   used,
-}:Omit<Ticket, 'id' | "used_at">): Omit<Ticket, 'id' | "used_at"> {
+  state,
+}: NewTicket): Omit<Ticket, "id"> {
   return {
+    used_at: used ? new Date().getTime() : undefined,
+    state: state,
     create_at: new Date().getTime(),
-    birthday: birthday,
+    birthdate: birthdate,
     email: email,
     name: name,
     phone: phone,
     status: status,
-    qrCodeToken: qrCodeToken,
+    qrCodeToken: "qrCodeToken", // Placeholder, should be generated or passed in
     city: city,
     singleUse: singleUse ?? true,
     used: used ?? false,

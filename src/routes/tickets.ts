@@ -7,8 +7,8 @@ export const ticketsRoutes = {
       const baseUrl = `${process.env.NEXT_PUBLIC_apiAddress}/tickets/${params.ticketId ?? ""}`;
 
       const searchParams = new URLSearchParams();
-      if (params.page) searchParams.append("page", `${params.page}`);
-      if (params.size) searchParams.append("size", `${params.size}`);
+      if (params?.page) searchParams.append("page", `${params.page}`);
+      if (params?.size) searchParams.append("size", `${params.size}`);
 
       return searchParams.toString()
         ? `${baseUrl}?${searchParams.toString()}`
