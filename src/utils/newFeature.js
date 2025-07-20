@@ -13,8 +13,6 @@ if (!featureName) {
   process.exit(1);
 }
 
-// Caminho para os arquivos
-const eslintrcPath = path.join(".eslint.config.js");
 
 // Cria as pastas necessárias
 const newFolders = [

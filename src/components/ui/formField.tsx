@@ -1,3 +1,4 @@
+import { useMask } from "@react-input/mask";
 import { Field } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import { Eye, EyeOffIcon } from "lucide-react";
@@ -6,7 +7,6 @@ import * as React from "react";
 import { cn } from "@/utils/cn";
 
 import { Button } from "./button";
-import { InputMask, useMask } from "@react-input/mask";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -19,23 +19,15 @@ type InputType = InputProps & {
 
 const FormField = React.forwardRef<HTMLInputElement, InputType>(
   (
-    {
-      className,
-      type,
-      textarea = false,
-      error,
-      touched,
-      icon: Icon,
-      ...props
-    },
+    { className, type, textarea = false, error, touched, icon: Icon, ...props },
     ref,
   ) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const inputRef = useMask({
-    mask: "(__) _____-____",
-    replacement: { _: /\d/ },
-    showMask: true,
-  });
+      mask: "(__) _____-____",
+      replacement: { _: /\d/ },
+      showMask: true,
+    });
 
     const inputType = type === "password" && showPassword ? "text" : type;
 
@@ -44,7 +36,7 @@ const FormField = React.forwardRef<HTMLInputElement, InputType>(
         <div className="relative">
           {Icon && <Icon className="inputIcon" />}
           <Field
-            ref={type=== "tel" ? inputRef : ref}
+            ref={type === "tel" ? inputRef : ref}
             name={props.name}
             type={inputType}
             className={cn(
