@@ -1,9 +1,9 @@
 import * as yup from "yup";
 
-import { Ticket, TicketStatus } from "../types/tickets";
+import { Ticket, TicketStatus } from "../../types/tickets";
 
 export const newTicketRequestSchema: yup.ObjectSchema<
-  Omit<Ticket, "id" | "create_at" | "used_at" | "qrCodeToken">
+  Omit<Ticket, "id" | "created_at" | "used_at" | "qrCodeToken">
 > = yup.object().shape({
   name: yup.string().min(1, "Name is required").required("Name is required"),
   email: yup

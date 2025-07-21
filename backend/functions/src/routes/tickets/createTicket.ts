@@ -2,11 +2,11 @@ import { addDoc, collection } from "@firebase/firestore";
 import corsLib from "cors";
 import * as functions from "firebase-functions";
 
-import { newTicket } from "../factories/ticket";
-import { db } from "../lib/firebaseClient";
-import { HTTPResponse } from "../types";
-import { Ticket } from "../types/tickets";
-import { newTicketRequestSchema } from "../validations/newTicketRequestValidation";
+import { newTicket } from "../../factories/ticket";
+import { HTTPResponse } from "../../types";
+import { NewTicket, Ticket } from "../../types/tickets";
+import { db } from "../../utils/firebaseClient";
+import { newTicketRequestSchema } from "../../validations/tickets/newTicketRequestValidation";
 
 const cors = corsLib({
   // origin:
@@ -28,21 +28,7 @@ export const createTicket = functions.https.onRequest((req, res) => {
       return res.status(405).send(response);
     }
 
-    const key = req.headers["x-admin-key"];
-
-    if (key !== process.env.NEXT_PUBLIC_X_AUTH_ADMIN_KEY) {
-      const response: HTTPResponse<undefined> = {
-        status: 403,
-        message: "Access denied",
-        error: true,
-      };
-      return res.status(403).send(response);
-    }
-
-    const ticketData: Omit<
-      Ticket,
-      "id" | "created_at" | "used_at" | "qrCodeToken"
-    > = req.body;
+    const ticketData: NewTicket = req.body;
 
     try {
       newTicketRequestSchema.validateSync(ticketData);

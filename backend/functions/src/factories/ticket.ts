@@ -14,7 +14,7 @@ export function newTicket({
   return {
     used_at: used ? new Date().getTime() : undefined,
     state: state,
-    create_at: new Date().getTime(),
+    created_at: new Date().getTime(),
     birthdate: birthdate,
     email: email,
     name: name,

@@ -16,7 +16,7 @@ export type Ticket = {
   birthdate: number;
   state: string;
   city: string;
-  create_at: number;
+  created_at: number;
   status: TicketStatus;
   qrCodeToken: string;
   used_at?: number;
@@ -24,4 +24,4 @@ export type Ticket = {
   used?: boolean;
 };
 
-export type NewTicket = Omit<Ticket, "id" | "create_at" | "qrCodeToken">;
+export type NewTicket = Omit<Ticket, "id" | "created_at" | "qrCodeToken">;

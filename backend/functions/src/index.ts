@@ -9,12 +9,13 @@
 
 import { setGlobalOptions } from "firebase-functions";
 
-import { getLeads } from "./leads/getLeads";
-import { saveLead } from "./leads/saveLead";
-import { paymentWebhook } from "./payment/webhook";
-import { createTicket } from "./tickets/createTicket";
-import { getTickets } from "./tickets/getTickets";
-import { validateTicket } from "./tickets/validateTicket";
+import { getLeads } from "./routes/leads/getLeads";
+import { saveLead } from "./routes/leads/saveLead";
+import { login } from "./routes/login/login";
+import { paymentWebhook } from "./routes/payment/webhook";
+import { createTicket } from "./routes/tickets/createTicket";
+import { getTickets } from "./routes/tickets/getTickets";
+import { validateTicket } from "./routes/tickets/validateTicket";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -36,9 +37,10 @@ setGlobalOptions({ maxInstances: 10 });
 //   response.send("Hello from Firebase!");
 // });
 
-exports.saveLead = saveLead;
-exports.getLeads = getLeads;
-exports.getTickets = getTickets;
-exports.validateTicket = validateTicket;
-exports.createTicket = createTicket;
-exports.paymentWebhook = paymentWebhook;
+// exports.saveLead = saveLead;
+// exports.getLeads = getLeads;
+// exports.getTickets = getTickets;
+// exports.validateTicket = validateTicket;
+// exports.createTicket = createTicket;
+// exports.paymentWebhook = paymentWebhook;
+exports.login = login;

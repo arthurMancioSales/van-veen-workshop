@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { NewLead } from "../types/leads";
+import { NewLead } from "../../types/leads";
 
 export const newLeadRequestSchema: yup.ObjectSchema<NewLead> = yup
   .object()

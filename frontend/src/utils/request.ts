@@ -8,6 +8,8 @@ export interface requestOptions {
   body?: object | FormData;
   formData?: boolean;
   mock?: any;
+  headers?: Record<string, string>;
+  credentials?: RequestCredentials;
 }
 
 export default async function request<T>({
@@ -16,12 +18,15 @@ export default async function request<T>({
   body,
   formData,
   mock,
+  headers,
+  credentials,
 }: requestOptions): Promise<{
   data: T;
   error: boolean;
   status: number;
   message?: string | string[];
   mock?: T;
+  headers?: Record<string, string>;
 }> {
   const accessToken = Cookies.get("accessToken");
 
@@ -42,7 +47,9 @@ export default async function request<T>({
           Authorization: accessToken ? `Bearer ${accessToken}` : "",
         }
       : { Authorization: `Bearer ${accessToken}` },
+    ...headers,
     cache: "no-store",
+    credentials: credentials || "same-origin",
   };
 
   const response = await fetch(url, requestOptions);

@@ -1,0 +1,12 @@
+[debug] [2025-07-21T02:21:02.123Z] ----------------------------------------------------------------------
+[debug] [2025-07-21T02:21:02.125Z] Command:       /home/arthur/.nvm/versions/node/v22.11.0/bin/node /home/arthur/.nvm/versions/node/v22.11.0/bin/firebase emulators:start
+[debug] [2025-07-21T02:21:02.125Z] CLI Version:   14.10.1
+[debug] [2025-07-21T02:21:02.125Z] Platform:      linux
+[debug] [2025-07-21T02:21:02.125Z] Node Version:  v22.11.0
+[debug] [2025-07-21T02:21:02.125Z] Time:          Sun Jul 20 2025 23:21:02 GMT-0300 (Brasilia Standard Time)
+[debug] [2025-07-21T02:21:02.125Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-21T02:21:02.129Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-21T02:21:02.129Z] > authorizing via signed-in user (arthurmancinho@gmail.com)
+[error] 
+[error] Error: Not in a Firebase app directory (could not locate firebase.json)

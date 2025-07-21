@@ -4,7 +4,8 @@ export const ticketsRoutes = {
   tickets: routeBuilder(
     ["POST", "GET", "DELETE"],
     (params: { ticketId?: string; page?: number; size?: number }) => {
-      const baseUrl = `${process.env.NEXT_PUBLIC_apiAddress}/tickets/${params.ticketId ?? ""}`;
+      const baseUrl =
+        "http://127.0.0.1:5001/van-veen-workshop/us-central1/getTickets";
 
       const searchParams = new URLSearchParams();
       if (params?.page) searchParams.append("page", `${params.page}`);

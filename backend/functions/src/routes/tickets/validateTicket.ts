@@ -1,10 +1,13 @@
 import { collection, getDocs, limit, query, where } from "@firebase/firestore";
 import corsLib from "cors";
 import * as functions from "firebase-functions";
+import * as jwt from "jsonwebtoken";
 
-import { db } from "../lib/firebaseClient";
-import { HTTPResponse } from "../types";
-import { Ticket } from "../types/tickets";
+import { HTTPResponse } from "../../types";
+import { Ticket } from "../../types/tickets";
+import { db } from "../../utils/firebaseClient";
+
+const SECRET = process.env.PASSWORD_SECRET || "default_secret";
 
 const cors = corsLib({
   // origin:
@@ -26,15 +29,30 @@ export const validateTicket = functions.https.onRequest((req, res) => {
       return res.status(405).send(response);
     }
 
-    const key = req.headers["x-admin-key"];
+    const cookie = req.headers.cookie || "";
+    const authToken = cookie
+      .split("; ")
+      .find((c) => c.startsWith("adminToken="))
+      ?.split("=")[1];
 
-    if (key !== process.env.NEXT_PUBLIC_X_AUTH_ADMIN_KEY) {
+    if (!authToken) return res.status(401).json({ error: "Não autorizado" });
+
+    try {
+      const decoded = jwt.verify(authToken, SECRET);
+
+      if (typeof decoded !== "object" || !("role" in decoded)) {
+        throw new Error("Token inválido");
+      }
+
+      if (!decoded.role || decoded.role !== "admin")
+        throw new Error("Acesso negado");
+    } catch {
       const response: HTTPResponse<undefined> = {
-        status: 403,
-        message: "Access denied",
+        status: 401,
+        message: "Token inválido ou expirado",
         error: true,
       };
-      return res.status(403).send(response);
+      return res.status(401).json(response);
     }
 
     const { token } = req.query;

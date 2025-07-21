@@ -4,8 +4,8 @@ import axios, { AxiosResponse } from "axios";
 import corsLib from "cors";
 import * as functions from "firebase-functions";
 
-import { HTTPResponse } from "../types";
-import { PaymentResponse } from "../types/paymentResponse";
+import { HTTPResponse } from "../../types";
+import { PaymentResponse } from "../../types/paymentResponse";
 
 const cors = corsLib({
   // origin:

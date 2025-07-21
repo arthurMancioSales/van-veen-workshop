@@ -9,10 +9,10 @@ import {
 } from "firebase/firestore";
 import * as functions from "firebase-functions";
 
-import { db } from "../lib/firebaseClient";
-import { HTTPResponse } from "../types";
-import { Lead } from "../types/leads";
-import { newLeadRequestSchema } from "../validations/newLeadRequestValidation";
+import { HTTPResponse } from "../../types";
+import { Lead } from "../../types/leads";
+import { db } from "../../utils/firebaseClient";
+import { newLeadRequestSchema } from "../../validations/leads/newLeadRequestValidation";
 
 const cors = corsLib({
   // origin:
@@ -63,11 +63,10 @@ export const saveLead = functions.https.onRequest((req, res) => {
       const snapshot = await getDocs(q);
 
       if (!snapshot.empty) {
-        const existingLead = snapshot.docs[0].data() as Lead;
         const response: HTTPResponse<Lead> = {
           status: 409,
           message: "Lead already exists",
-          data: existingLead,
+          data: undefined,
           error: true,
         };
         return res.status(409).send(response);
