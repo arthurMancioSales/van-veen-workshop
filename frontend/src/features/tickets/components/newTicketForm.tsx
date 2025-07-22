@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
+import { initMercadoPago } from "@mercadopago/sdk-react";
+import { IPaymentBrickCustomization } from "@mercadopago/sdk-react/esm/bricks/payment/type";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Form, Formik } from "formik";
 import { ChevronDownIcon, Send, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useWizard } from "react-use-wizard";
 import { toast } from "sonner";
 
 import { StateSelect } from "@/components/stateSelect";
@@ -23,14 +27,91 @@ import {
 import { newTicketApi } from "../api/newTicketApi";
 import { NewTicket, TicketStatus } from "../types/tickets";
 import { newTicketValidation } from "../validation/newTicketValidation";
+declare global {
+  interface Window {
+    paymentBrickController?: {
+      unmount: () => void;
+    };
+  }
+}
 
 export default function NewTicketForm({
   setOpen,
+  price,
 }: {
   setOpen: (open: boolean) => void;
+  price: number;
 }) {
   const [openBirthdate, setOpenBirthDate] = useState(false);
   const [openStateSelect, setOpenStateSelect] = useState(false);
+  const wizardController = useWizard();
+
+  useEffect(() => {
+    initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_TEST_PUBLIC_KEY || "");
+
+    return () => {
+      window.paymentBrickController.unmount();
+    };
+  }, []);
+
+  const initialization = useMemo(
+    () => ({
+      amount: price,
+      preferenceId: "your_preference_id_here",
+    }),
+    [price],
+  );
+
+  const customization: IPaymentBrickCustomization = useMemo(
+    () => ({
+      paymentMethods: {
+        ticket: "all",
+        bankTransfer: "all",
+        creditCard: "all",
+        prepaidCard: "all",
+        debitCard: "all",
+        mercadoPago: "all",
+      },
+    }),
+    [],
+  );
+
+  console.log("initialization", initialization);
+  console.log("customization", customization);
+  console.log(wizardController);
+
+  //   const onSubmit = async ({ selectedPaymentMethod, formData }) => {
+  //     // callback chamado ao clicar no botão de submissão dos dados
+  //     return new Promise((resolve, reject) => {
+  //       fetch("/process_payment", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(formData),
+  //       })
+  //         .then((response) => response.json())
+  //         .then((response) => {
+  //           // receber o resultado do pagamento
+  //           resolve();
+  //         })
+  //         .catch((error) => {
+  //           // lidar com a resposta de erro ao tentar criar o pagamento
+  //           reject();
+  //         });
+  //     });
+  //   };
+
+  //   const onError = async (error) => {
+  //     // callback chamado para todos os casos de erro do Brick
+  //     console.log(error);
+  //   };
+  //   const onReady = async () => {
+  //     /*
+  //    Callback chamado quando o Brick estiver pronto.
+  //    Aqui você pode ocultar loadings do seu site, por exemplo.
+  //  */
+  //   };
 
   const initialValues: NewTicket = {
     name: "",
@@ -218,6 +299,16 @@ export default function NewTicketForm({
                 touched={!!touched.birthdate}
               />
             </FormFieldRoot>
+          </div>
+
+          <div>
+            {/* <Payment
+              initialization={initialization}
+              customization={customization}
+              onSubmit={(onSubmit)}
+              onReady={onReady}
+              onError={onError}
+            /> */}
           </div>
 
           <div className="flex gap-4 self-end">

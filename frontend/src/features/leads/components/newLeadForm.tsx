@@ -59,6 +59,7 @@ export default function NewLeadForm({
         toast.success("Sucesso", {
           description: "Formulário enviado com sucesso",
         });
+        setOpen(false);
         return;
       }}
     >

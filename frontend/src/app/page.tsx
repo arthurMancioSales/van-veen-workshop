@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import PaymentModal from "@/components/tickets/paymentModal";
 import { Button } from "@/components/ui/button";
 import { NewLeadModal } from "@/features/leads/components/newLeadModal";
 import { NewTicketModal } from "@/features/tickets/components/newTicketModal";
@@ -58,10 +57,6 @@ export default function Component() {
               <p className="mt-2 text-sm text-gray-400">Vagas limitadas</p>
             </div>
           </div>
-        </section>
-
-        <section>
-          <PaymentModal />
         </section>
 
         {/* O Paradoxo do Sucesso */}

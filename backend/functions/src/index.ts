@@ -37,10 +37,10 @@ setGlobalOptions({ maxInstances: 10 });
 //   response.send("Hello from Firebase!");
 // });
 
-// exports.saveLead = saveLead;
-// exports.getLeads = getLeads;
-// exports.getTickets = getTickets;
-// exports.validateTicket = validateTicket;
-// exports.createTicket = createTicket;
-// exports.paymentWebhook = paymentWebhook;
+exports.saveLead = saveLead;
+exports.getLeads = getLeads;
+exports.getTickets = getTickets;
+exports.validateTicket = validateTicket;
+exports.createTicket = createTicket;
+exports.paymentWebhook = paymentWebhook;
 exports.login = login;

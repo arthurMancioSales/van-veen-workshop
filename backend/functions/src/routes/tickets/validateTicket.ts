@@ -35,7 +35,15 @@ export const validateTicket = functions.https.onRequest((req, res) => {
       .find((c) => c.startsWith("adminToken="))
       ?.split("=")[1];
 
-    if (!authToken) return res.status(401).json({ error: "Não autorizado" });
+    if (!authToken) {
+      const response: HTTPResponse<undefined> = {
+        status: 401,
+        message: "Não autorizado",
+        error: true,
+      };
+      res.status(401).json(response);
+      return;
+    }
 
     try {
       const decoded = jwt.verify(authToken, SECRET);

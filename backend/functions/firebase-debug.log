@@ -1,0 +1,159 @@
+[debug] [2025-07-22T02:03:35.308Z] ----------------------------------------------------------------------
+[debug] [2025-07-22T02:03:35.309Z] Command:       /home/arthur/.nvm/versions/node/v22.11.0/bin/node /home/arthur/.nvm/versions/node/v22.11.0/bin/firebase emulators:start
+[debug] [2025-07-22T02:03:35.310Z] CLI Version:   14.10.1
+[debug] [2025-07-22T02:03:35.310Z] Platform:      linux
+[debug] [2025-07-22T02:03:35.310Z] Node Version:  v22.11.0
+[debug] [2025-07-22T02:03:35.310Z] Time:          Mon Jul 21 2025 23:03:35 GMT-0300 (Brasilia Standard Time)
+[debug] [2025-07-22T02:03:35.310Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-22T02:03:35.469Z] Field "/functions" in "firebase.json" is possibly invalid: must be object
+[debug] [2025-07-22T02:03:35.469Z] Object "/functions/0" in "firebase.json" has unknown property: {"additionalProperty":"functions"}
+[debug] [2025-07-22T02:03:35.469Z] Field "/functions" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-07-22T02:03:35.472Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-22T02:03:35.472Z] > authorizing via signed-in user (arthurmancinho@gmail.com)
+[debug] [2025-07-22T02:03:35.500Z] openjdk version "21.0.7" 2025-04-15
+
+[debug] [2025-07-22T02:03:35.500Z] OpenJDK Runtime Environment (build 21.0.7+6-Ubuntu-0ubuntu124.04)
+OpenJDK 64-Bit Server VM (build 21.0.7+6-Ubuntu-0ubuntu124.04, mixed mode, sharing)
+
+[debug] [2025-07-22T02:03:35.505Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, firestore, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, extensions"}}
+[debug] [2025-07-22T02:03:35.507Z] Checked if tokens are valid: true, expires at: 1753151658268
+[debug] [2025-07-22T02:03:35.507Z] Checked if tokens are valid: true, expires at: 1753151658268
+[debug] [2025-07-22T02:03:35.507Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/van-veen-workshop [none]
+[debug] [2025-07-22T02:03:36.431Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/van-veen-workshop 200
+[debug] [2025-07-22T02:03:36.431Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/van-veen-workshop {"projectNumber":"506490647476","projectId":"van-veen-workshop","lifecycleState":"ACTIVE","name":"van-veen-workshop","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-07-16T14:46:59.291816Z"}
+[debug] [2025-07-22T02:03:36.434Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.435Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.435Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.435Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-07-22T02:03:36.437Z] [hub] writing locator at /tmp/hub-van-veen-workshop.json
+[debug] [2025-07-22T02:03:36.440Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2025-07-22T02:03:36.441Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.441Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.441Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-07-22T02:03:36.441Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, auth, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, auth, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2025-07-22T02:03:36.462Z] defaultcredentials: writing to file /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json
+[debug] [2025-07-22T02:03:36.462Z] Setting GAC to /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json"}}
+[debug] [2025-07-22T02:03:36.463Z] Checked if tokens are valid: true, expires at: 1753151658268
+[debug] [2025-07-22T02:03:36.463Z] Checked if tokens are valid: true, expires at: 1753151658268
+[debug] [2025-07-22T02:03:36.463Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/van-veen-workshop/adminSdkConfig [none]
+[debug] [2025-07-22T02:03:36.879Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/van-veen-workshop/adminSdkConfig 200
+[debug] [2025-07-22T02:03:36.880Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/van-veen-workshop/adminSdkConfig {"projectId":"van-veen-workshop","storageBucket":"van-veen-workshop.firebasestorage.app"}
+[warn] ⚠  firestore: Cloud Firestore rules file /home/arthur/desktop/projetos/van-veen-workshop/backend/backend/firestore.rules specified in firebase.json does not exist. {"metadata":{"emulator":{"name":"firestore"},"message":"Cloud Firestore rules file \u001b[1m/home/arthur/desktop/projetos/van-veen-workshop/backend/backend/firestore.rules\u001b[22m specified in firebase.json does not exist."}}
+[warn] ⚠  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2025-07-22T02:03:36.890Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-07-22T02:03:36.890Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2025-07-22T02:03:36.890Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/home/arthur/.cache/firebase/emulators/cloud-firestore-emulator-v1.19.8.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","van-veen-workshop","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8080} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/home/arthur/.cache/firebase/emulators/cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"van-veen-workshop\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8080}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2025-07-22T02:03:37.732Z] Jul 21, 2025 11:03:37 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:9150
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jul 21, 2025 11:03:37 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://127.0.0.1:9150\n"}}
+[debug] [2025-07-22T02:03:37.761Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2025-07-22T02:03:37.761Z] 127.0.0.1:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
+
+If you are running a Firestore in Datastore Mode project, run:
+
+   export DATASTORE_EMULATOR_HOST=127.0.0.1:8080
+
+Note: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"127.0.0.1:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080\n\nIf you are running a Firestore in Datastore Mode project, run:\n\n   export DATASTORE_EMULATOR_HOST=127.0.0.1:8080\n\nNote: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.\nDev App Server is now running.\n\n"}}
+[info] ✔  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2025-07-22T02:03:37.903Z] [Extensions] Connecting Extensions emulator, this is a noop.
+[info] i  functions: Watching "/home/arthur/desktop/projetos/van-veen-workshop/backend/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/arthur/desktop/projetos/van-veen-workshop/backend/functions\" for Cloud Functions..."}}
+[debug] [2025-07-22T02:03:37.910Z] Validating nodejs source
+[debug] [2025-07-22T02:03:38.274Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "serve": "npm run build && firebase emulators:start",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@firebase/firestore": "^4.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "eslint-config-prettier": "^10.1.8",
+    "firebase": "^12.0.0",
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.3.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.31.0",
+    "@types/uuid": "^10.0.0",
+    "eslint": "9.31.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-check-file": "^3.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^5.5.3",
+    "typescript": "^5.7.3"
+  },
+  "private": true
+}
+[debug] [2025-07-22T02:03:38.274Z] Building nodejs source
+[debug] [2025-07-22T02:03:38.274Z] Failed to find version of module node: reached end of search path /home/arthur/desktop/projetos/van-veen-workshop/backend/functions/node_modules
+[info] ✔  functions: Using node@22 from host. 
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2025-07-22T02:03:38.277Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-07-22T02:03:38.279Z] Found firebase-functions binary at '/home/arthur/desktop/projetos/van-veen-workshop/backend/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8985
+
+[error] (node:38244) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2025-07-22T02:03:38.635Z] Got response from /__/functions.yaml {"endpoints":{"saveLead":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"saveLead"},"getLeads":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getLeads"},"getTickets":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getTickets"},"validateTicket":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"validateTicket"},"createTicket":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"createTicket"},"paymentWebhook":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"paymentWebhook"},"login":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"login"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-07-22T02:03:42.657Z] defaultcredentials: writing to file /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json
+[debug] [2025-07-22T02:03:42.658Z] Setting GAC to /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /home/arthur/.config/firebase/arthurmancinho_gmail_com_application_default_credentials.json"}}
+[info] ✔  functions: Loaded functions definitions from source: saveLead, getLeads, getTickets, validateTicket, createTicket, paymentWebhook, login. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: saveLead, getLeads, getTickets, validateTicket, createTicket, paymentWebhook, login."}}
+[info] ✔  functions[us-central1-saveLead]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/saveLead). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/saveLead)."}}
+[info] ✔  functions[us-central1-getLeads]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/getLeads). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/getLeads)."}}
+[info] ✔  functions[us-central1-getTickets]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/getTickets). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/getTickets)."}}
+[info] ✔  functions[us-central1-validateTicket]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/validateTicket). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/validateTicket)."}}
+[info] ✔  functions[us-central1-createTicket]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/createTicket). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/createTicket)."}}
+[info] ✔  functions[us-central1-paymentWebhook]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/paymentWebhook). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/paymentWebhook)."}}
+[info] ✔  functions[us-central1-login]: http function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/login). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/van-veen-workshop/us-central1/login)."}}
+[debug] [2025-07-22T02:03:42.663Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: connect ECONNREFUSED 127.0.0.1:40001. If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────┬────────────────┬──────────────────────────────────┐
+│ Emulator   │ Host:Port      │ View in Emulator UI              │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Functions  │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions  │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Firestore  │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore  │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Extensions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/extensions │
+└────────────┴────────────────┴──────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500, 9150
+┌─────────────────────────┬───────────────┬─────────────────────┐
+│ Extension Instance Name │ Extension Ref │ View in Emulator UI │
+└─────────────────────────┴───────────────┴─────────────────────┘
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

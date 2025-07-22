@@ -11,12 +11,12 @@ export async function loginApi({ password }: Login) {
   try {
     const requestParams: requestOptions = {
       url: `${routes.login.urlBuilder()}`,
-      method: routes.login.methods.POST,
+      method: "POST",
       body,
-      credentials: "include",
+      credentials: "omit",
     };
 
-    const response = await request<{ message: string }>(requestParams);
+    const response = await request<{ token: string }>(requestParams);
     if (response.error) {
       return { data: null as null, error: response.message };
     }

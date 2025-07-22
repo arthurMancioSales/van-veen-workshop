@@ -28,7 +28,7 @@ export default async function request<T>({
   mock?: T;
   headers?: Record<string, string>;
 }> {
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get("adminToken");
 
   if (mock) {
     return {
@@ -64,7 +64,7 @@ export default async function request<T>({
   const data = await response.json();
 
   return {
-    data,
+    data: data.data,
     error: !response.ok,
     status: response.status,
     message: data.message ? data.message : null,

@@ -28,7 +28,7 @@ export default function LoginForm() {
       initialValues={initialValues}
       validationSchema={loginValidationSchema}
       onSubmit={async (values) => {
-        const { error } = await loginApi({
+        const { data, error } = await loginApi({
           ...values,
         });
 
@@ -37,6 +37,8 @@ export default function LoginForm() {
             description: error,
           });
         }
+
+        document.cookie = `adminToken=${data.token}; path=/; max-age=604800`;
 
         toast.success("Sucesso", {
           description: "Login realizado com sucesso",
