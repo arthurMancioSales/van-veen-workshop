@@ -3,35 +3,11 @@ import request, { requestOptions } from "@/utils/request";
 
 import { NewTicket } from "../types/tickets";
 
-export async function newTicketApi({
-  name,
-  email,
-  birthdate,
-  city,
-  state,
-  phone,
-  status,
-  singleUse,
-  used,
-  used_at,
-}: NewTicket) {
-  const body = {
-    name,
-    email,
-    birthdate,
-    city,
-    state,
-    phone,
-    status,
-    singleUse,
-    used,
-    used_at,
-  };
-
+export async function newTicketApi(body: NewTicket) {
   try {
     const requestParams: requestOptions = {
-      url: `${routes.tickets.urlBuilder()}`,
-      method: routes.tickets.methods.POST,
+      url: `${routes.payment.urlBuilder()}`,
+      method: routes.payment.methods.POST,
       body,
     };
 

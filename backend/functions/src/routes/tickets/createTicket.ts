@@ -55,6 +55,7 @@ export const createTicket = functions.https.onRequest((req, res) => {
       city: ticketData.city,
       singleUse: ticketData.singleUse,
       used: ticketData.used,
+      payment_id: ticketData.payment_id,
     });
 
     try {

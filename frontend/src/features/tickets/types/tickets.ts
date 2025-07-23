@@ -19,9 +19,10 @@ export type Ticket = {
   created_at: number;
   status: TicketStatus;
   qrCodeToken: string;
-  used_at?: number;
+  used_at?: number | null;
   singleUse?: boolean;
   used?: boolean;
+  payment_id: string;
 };
 
 export type NewTicket = Omit<Ticket, "id" | "created_at" | "qrCodeToken">;

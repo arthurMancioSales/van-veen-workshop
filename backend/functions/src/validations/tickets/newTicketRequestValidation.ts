@@ -20,4 +20,5 @@ export const newTicketRequestSchema: yup.ObjectSchema<
   singleUse: yup.boolean().default(true),
   used: yup.boolean().default(false),
   state: yup.string().required("State is required"),
+  payment_id: yup.string().required("Payment ID is required"),
 });

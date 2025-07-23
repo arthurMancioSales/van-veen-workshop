@@ -1,11 +1,13 @@
 export enum TicketStatus {
-  waiting_payment = "waiting_payment",
-  paid = "paid",
+  pending = "pending",
+  approved = "approved",
+  authorized = "authorized",
+  in_process = "in_process",
+  in_mediation = "in_mediation",
+  rejected = "rejected",
   cancelled = "cancelled",
   refunded = "refunded",
-  expired = "expired",
-  processing = "processing",
-  completed = "completed",
+  charged_back = "charged_back",
 }
 
 export type Ticket = {
@@ -19,9 +21,10 @@ export type Ticket = {
   created_at: number;
   status: TicketStatus;
   qrCodeToken: string;
-  used_at?: number;
+  used_at?: number | null;
   singleUse?: boolean;
   used?: boolean;
+  payment_id: string;
 };
 
 export type NewTicket = Omit<Ticket, "id" | "created_at" | "qrCodeToken">;

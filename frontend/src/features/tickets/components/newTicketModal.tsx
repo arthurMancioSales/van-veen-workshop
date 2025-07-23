@@ -13,12 +13,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { NewTicket } from "../types/tickets";
+
 import NewTicketForm from "./newTicketForm";
+import CheckoutStep from "./wizard/checkoutStep";
 import ChoseProductStep from "./wizard/choseProductStep";
 
 export function NewTicketModal({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [price, setPrice] = useState(100); // Default price, can be updated based on product selection
+
+  const [ticketData, setTicketData] = useState<NewTicket | null>(null);
 
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
@@ -34,7 +39,15 @@ export function NewTicketModal({ children }: { children: React.ReactNode }) {
         </DialogHeader>
         <Wizard>
           <ChoseProductStep setPrice={setPrice} />
-          <NewTicketForm setOpen={setOpen} price={price} />
+          <NewTicketForm
+            newTicketData={ticketData}
+            setTicketData={setTicketData}
+          />
+          <CheckoutStep
+            setOpen={setOpen}
+            price={price}
+            ticketData={ticketData}
+          />
         </Wizard>
       </DialogContent>
     </Dialog>

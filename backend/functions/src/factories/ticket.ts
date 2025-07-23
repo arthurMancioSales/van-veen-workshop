@@ -10,9 +10,11 @@ export function newTicket({
   singleUse,
   used,
   state,
+  payment_id,
+  used_at,
 }: NewTicket): Omit<Ticket, "id"> {
   return {
-    used_at: used ? new Date().getTime() : undefined,
+    used_at: used && used_at ? used_at : null,
     state: state,
     created_at: new Date().getTime(),
     birthdate: birthdate,
@@ -24,5 +26,6 @@ export function newTicket({
     city: city,
     singleUse: singleUse ?? true,
     used: used ?? false,
+    payment_id: payment_id,
   };
 }

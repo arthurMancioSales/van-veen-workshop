@@ -1,13 +1,9 @@
-/* eslint-disable no-console */
-import { initMercadoPago } from "@mercadopago/sdk-react";
-import { IPaymentBrickCustomization } from "@mercadopago/sdk-react/esm/bricks/payment/type";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Form, Formik } from "formik";
-import { ChevronDownIcon, Send, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ChevronDownIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import { useWizard } from "react-use-wizard";
-import { toast } from "sonner";
 
 import { StateSelect } from "@/components/stateSelect";
 import { Button } from "@/components/ui/button";
@@ -24,105 +20,30 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { newTicketApi } from "../api/newTicketApi";
 import { NewTicket, TicketStatus } from "../types/tickets";
 import { newTicketValidation } from "../validation/newTicketValidation";
-declare global {
-  interface Window {
-    paymentBrickController?: {
-      unmount: () => void;
-    };
-  }
-}
 
 export default function NewTicketForm({
-  setOpen,
-  price,
+  setTicketData,
+  newTicketData,
 }: {
-  setOpen: (open: boolean) => void;
-  price: number;
+  setTicketData: (data: NewTicket) => void;
+  newTicketData: NewTicket;
 }) {
   const [openBirthdate, setOpenBirthDate] = useState(false);
   const [openStateSelect, setOpenStateSelect] = useState(false);
   const wizardController = useWizard();
 
-  useEffect(() => {
-    initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_TEST_PUBLIC_KEY || "");
-
-    return () => {
-      window.paymentBrickController.unmount();
-    };
-  }, []);
-
-  const initialization = useMemo(
-    () => ({
-      amount: price,
-      preferenceId: "your_preference_id_here",
-    }),
-    [price],
-  );
-
-  const customization: IPaymentBrickCustomization = useMemo(
-    () => ({
-      paymentMethods: {
-        ticket: "all",
-        bankTransfer: "all",
-        creditCard: "all",
-        prepaidCard: "all",
-        debitCard: "all",
-        mercadoPago: "all",
-      },
-    }),
-    [],
-  );
-
-  console.log("initialization", initialization);
-  console.log("customization", customization);
-  console.log(wizardController);
-
-  //   const onSubmit = async ({ selectedPaymentMethod, formData }) => {
-  //     // callback chamado ao clicar no botão de submissão dos dados
-  //     return new Promise((resolve, reject) => {
-  //       fetch("/process_payment", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //       })
-  //         .then((response) => response.json())
-  //         .then((response) => {
-  //           // receber o resultado do pagamento
-  //           resolve();
-  //         })
-  //         .catch((error) => {
-  //           // lidar com a resposta de erro ao tentar criar o pagamento
-  //           reject();
-  //         });
-  //     });
-  //   };
-
-  //   const onError = async (error) => {
-  //     // callback chamado para todos os casos de erro do Brick
-  //     console.log(error);
-  //   };
-  //   const onReady = async () => {
-  //     /*
-  //    Callback chamado quando o Brick estiver pronto.
-  //    Aqui você pode ocultar loadings do seu site, por exemplo.
-  //  */
-  //   };
-
   const initialValues: NewTicket = {
-    name: "",
-    email: "",
-    phone: "",
-    state: "",
-    city: "",
-    birthdate: 0,
-    status: TicketStatus.waiting_payment,
-    singleUse: false,
-    used: false,
+    name: newTicketData?.name || "",
+    email: newTicketData?.email || "",
+    phone: newTicketData?.phone || "",
+    state: newTicketData?.state || "",
+    city: newTicketData?.city || "",
+    birthdate: newTicketData?.birthdate || 0,
+    status: newTicketData?.status || TicketStatus.waiting_payment,
+    singleUse: newTicketData?.singleUse || false,
+    used: newTicketData?.used || false,
   };
 
   return (
@@ -130,20 +51,8 @@ export default function NewTicketForm({
       initialValues={initialValues}
       validationSchema={newTicketValidation}
       onSubmit={async (values) => {
-        const { error } = await newTicketApi({
-          ...values,
-        });
-
-        if (error) {
-          return toast.error("Erro", {
-            description: error,
-          });
-        }
-
-        toast.success("Sucesso", {
-          description: "Formulário enviado com sucesso",
-        });
-        return;
+        setTicketData(values);
+        wizardController.nextStep();
       }}
     >
       {({ errors, touched, isSubmitting, values, setFieldValue }) => (
@@ -301,30 +210,24 @@ export default function NewTicketForm({
             </FormFieldRoot>
           </div>
 
-          <div>
-            {/* <Payment
-              initialization={initialization}
-              customization={customization}
-              onSubmit={(onSubmit)}
-              onReady={onReady}
-              onError={onError}
-            /> */}
-          </div>
-
-          <div className="flex gap-4 self-end">
-            <Button variant="destructive" onClick={() => setOpen(false)}>
-              <X className="mr-2 h-4 w-4" />
-              Cancelar
+          <div className="flex w-full justify-between gap-4 self-end">
+            <Button
+              variant="ghost"
+              onClick={() => wizardController.previousStep()}
+              className="w-fit"
+            >
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              Voltar
             </Button>
             <Button
               loading={isSubmitting}
-              className="ml-auto w-fit"
+              className="w-fit"
               type="submit"
-              variant="success"
+              variant="ghost"
               disabled={Object.keys(errors).length > 0}
             >
-              <Send className="mr-2 h-4 w-4" />
-              Enviar
+              <ChevronRight className="mr-2 h-4 w-4" />
+              Próximo
             </Button>
           </div>
         </Form>
