@@ -1,18 +1,14 @@
 import { addDoc, collection } from "@firebase/firestore";
 import corsLib from "cors";
 import * as functions from "firebase-functions";
-import { MercadoPagoConfig, Order, Payment } from "mercadopago";
-import {
-  OrderResponse,
-  PaymentApiResponse,
-  PaymentResponse,
-} from "mercadopago/dist/clients/order/commonTypes";
+import { MercadoPagoConfig, Payment } from "mercadopago";
 import { v4 } from "uuid";
 
 import { newTicket } from "../../factories/ticket";
 import { HTTPResponse } from "../../types";
 import { NewTicket, Ticket } from "../../types/tickets";
 import { db } from "../../utils/firebaseClient";
+import { verifyExistingDoc } from "../../utils/verifyExistingDoc";
 import { newTicketRequestSchema } from "../../validations/tickets/newTicketRequestValidation";
 
 // Configuração CORS mais explícita
@@ -36,18 +32,18 @@ export const process_payment = functions.https.onRequest((req, res) => {
 
     const ticketData: NewTicket = req.body;
 
-    // try {
-    //   newTicketRequestSchema.validateSync(ticketData);
-    // } catch (error) {
-    //   const response: HTTPResponse<undefined> = {
-    //     status: 400,
-    //     message:
-    //       error instanceof Error ? error.message : "Invalid request data",
-    //     error: true,
-    //   };
+    try {
+      newTicketRequestSchema.validateSync(ticketData);
+    } catch (error) {
+      const response: HTTPResponse<undefined> = {
+        status: 400,
+        message:
+          error instanceof Error ? error.message : "Invalid request data",
+        error: true,
+      };
 
-    //   return res.status(400).send(response);
-    // }
+      return res.status(400).send(response);
+    }
 
     const client = new MercadoPagoConfig({
       accessToken: `${process.env.MERCADO_PAGO_TEST_ACCESS_TOKEN}`,
@@ -59,7 +55,6 @@ export const process_payment = functions.https.onRequest((req, res) => {
     payment
       .create({ body: req.body.formData })
       .then(async (result) => {
-        const ticketData: NewTicket = req.body;
         const ticketsRef = collection(db, "tickets");
 
         if (!result || !result.id) {
@@ -86,6 +81,17 @@ export const process_payment = functions.https.onRequest((req, res) => {
         });
 
         try {
+          const existingDoc = await verifyExistingDoc(
+            ticketsRef,
+            ticketData.phone,
+            ticketData.email,
+          );
+
+          if (existingDoc.error) {
+            res.status(existingDoc.status).json(existingDoc);
+            return;
+          }
+
           await addDoc(ticketsRef, ticket);
         } catch (error) {
           const response: HTTPResponse<undefined> = {
@@ -99,11 +105,11 @@ export const process_payment = functions.https.onRequest((req, res) => {
           return;
         }
 
-        const response: HTTPResponse<undefined> = {
+        const response: HTTPResponse<number> = {
           status: 200,
           message: "Pagamento realizado com sucesso",
           error: false,
-          data: undefined,
+          data: result.id,
         };
 
         res.status(200).json(response);

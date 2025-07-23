@@ -4,7 +4,9 @@ import { Form, Formik } from "formik";
 import { ChevronDownIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useWizard } from "react-use-wizard";
+import { toast } from "sonner";
 
+import { verifyExistingDocApi } from "@/api/verifyExistingDocApi";
 import { StateSelect } from "@/components/stateSelect";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -41,9 +43,10 @@ export default function NewTicketForm({
     state: newTicketData?.state || "",
     city: newTicketData?.city || "",
     birthdate: newTicketData?.birthdate || 0,
-    status: newTicketData?.status || TicketStatus.waiting_payment,
+    status: newTicketData?.status || TicketStatus.in_process,
     singleUse: newTicketData?.singleUse || false,
     used: newTicketData?.used || false,
+    payment_id: newTicketData?.payment_id || "",
   };
 
   return (
@@ -51,6 +54,17 @@ export default function NewTicketForm({
       initialValues={initialValues}
       validationSchema={newTicketValidation}
       onSubmit={async (values) => {
+        const response = await verifyExistingDocApi({
+          phone: values.phone,
+          email: values.email,
+          type: "tickets",
+        });
+
+        if (response.error) {
+          toast.error("Erro", { description: response.error });
+          return;
+        }
+
         setTicketData(values);
         wizardController.nextStep();
       }}

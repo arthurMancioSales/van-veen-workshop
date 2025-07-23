@@ -4,7 +4,6 @@ import {
   IPaymentBrickCustomization,
   IPaymentFormData,
 } from "@mercadopago/sdk-react/esm/bricks/payment/type";
-import { IBrickError } from "@mercadopago/sdk-react/esm/bricks/util/types/common";
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { useWizard } from "react-use-wizard";
@@ -17,12 +16,12 @@ import { NewTicket } from "../../types/tickets";
 
 export default function CheckoutStep({
   price,
-  setOpen,
   ticketData,
+  setPaymentId,
 }: {
   price: number;
-  setOpen: (open: boolean) => void;
   ticketData: NewTicket;
+  setPaymentId: (id: number) => void;
 }) {
   useEffect(() => {
     initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_TEST_PUBLIC_KEY || "");
@@ -33,7 +32,10 @@ export default function CheckoutStep({
   const initialization = useMemo(
     () => ({
       amount: price,
-      preferenceId: "your_preference_id_here",
+      preferenceId:
+        price === Number(process.env.NEXT_PUBLIC_SIMPLE_TICKET_PRICE)
+          ? process.env.NEXT_PUBLIC_REFERENCE_ID_SIMPLE_TICKET
+          : process.env.NEXT_PUBLIC_REFERENCE_ID_VIP_TICKET,
     }),
     [price],
   );
@@ -46,32 +48,36 @@ export default function CheckoutStep({
         creditCard: "all",
         prepaidCard: "all",
         debitCard: "all",
-        mercadoPago: "all",
+        maxInstallments: 12,
+        minInstallments: 1,
+      },
+      visual: {
+        style: {
+          theme: "dark",
+        },
       },
     }),
     [],
   );
 
-  const onError = async (error: IBrickError) => {
+  const onError = async () => {
     toast.error("Erro", {
       description: "Ocorreu um erro ao processar o pagamento.",
     });
-    console.log(error);
   };
 
   return (
-    <div>
+    <div className="flex w-full flex-col gap-4">
       <Payment
         initialization={initialization}
         customization={customization}
         onSubmit={async (
           param: IPaymentFormData,
-          param2?: IAdditionalCardFormData,
+          param2: IAdditionalCardFormData,
         ) => {
-          console.log(param, param2);
-
-          const { error } = await newTicketApi({
+          const { data, error } = await newTicketApi({
             ...param,
+            ...param2,
             ...ticketData,
           });
 
@@ -84,6 +90,10 @@ export default function CheckoutStep({
           toast.success("Sucesso", {
             description: "Formulário enviado com sucesso",
           });
+
+          setPaymentId(data);
+          wizardController.nextStep();
+
           return;
         }}
         onError={onError}

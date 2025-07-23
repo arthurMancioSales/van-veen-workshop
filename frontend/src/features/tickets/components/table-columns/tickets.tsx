@@ -199,11 +199,11 @@ export function statusColumn(title = "status") {
     cell: ({ row }) => {
       const getBadgeVariant = (status: TicketStatus) => {
         switch (status) {
-          case TicketStatus.paid:
+          case TicketStatus.approved:
             return "success";
           case TicketStatus.cancelled:
             return "destructive";
-          case TicketStatus.waiting_payment:
+          case TicketStatus.pending:
             return "warning";
           default:
             return "default";

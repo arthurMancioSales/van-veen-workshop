@@ -15,13 +15,13 @@ export default function ChoseProductStep({
       id: "Ingresso Unitário",
       name: "Produto 1",
       description: "Descrição do Produto 1",
-      price: 100,
+      price: Number(process.env.NEXT_PUBLIC_SIMPLE_TICKET_PRICE),
     },
     {
       id: "Ingresso VIP",
       name: "Produto 2",
       description: "Descrição do Produto 2",
-      price: 200,
+      price: Number(process.env.NEXT_PUBLIC_VIP_TICKET_PRICE),
     },
   ];
 
@@ -31,11 +31,7 @@ export default function ChoseProductStep({
         {products.map((product) => (
           <Card
             key={product.id}
-            className="flex cursor-pointer flex-col justify-between border border-gray-700 bg-gray-800 transition-all hover:border-purple-500"
-            onClick={() => {
-              setPrice(product.price);
-              wizardController.nextStep();
-            }}
+            className="flex flex-col justify-between border border-gray-700 bg-gray-800 transition-all hover:border-purple-500"
           >
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold text-white">
@@ -50,7 +46,13 @@ export default function ChoseProductStep({
                   currency: "BRL",
                 }).format(product.price)}
               </div>
-              <Button className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-700 text-lg font-bold text-white shadow-lg transition-all hover:from-purple-700 hover:to-indigo-800">
+              <Button
+                onClick={() => {
+                  setPrice(product.price);
+                  wizardController.nextStep();
+                }}
+                className="w-full cursor-pointer rounded-lg bg-gradient-to-r from-purple-600 to-indigo-700 text-lg font-bold text-white shadow-lg transition-all hover:from-purple-700 hover:to-indigo-800"
+              >
                 Selecionar
               </Button>
             </CardContent>

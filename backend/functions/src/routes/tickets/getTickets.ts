@@ -1,4 +1,4 @@
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 import corsLib from "cors";
 import * as functions from "firebase-functions";
 
@@ -31,24 +31,14 @@ export const getTickets = functions.https.onRequest((req, res) => {
       return res.status(405).send(response);
     }
 
-    const ticketsRef = collection(db, "tickets");
-
     try {
-      const ticketSnapshot = await getDocs(ticketsRef);
+      if (req.params.ticketToken) {
+        getTicketByToken(req, res);
+        return;
+      }
 
-      const tickets: Ticket[] = ticketSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Ticket, "id">),
-      }));
-
-      const response: HTTPResponse<Ticket[]> = {
-        status: 200,
-        message: "Tickets retrieved successfully",
-        data: tickets,
-        error: false,
-      };
-
-      res.status(200).send(response);
+      getAllTickets(req, res);
+      return;
     } catch (error) {
       const response: HTTPResponse<undefined> = {
         status: 500,
@@ -63,5 +53,56 @@ export const getTickets = functions.https.onRequest((req, res) => {
     return;
   });
 });
+
+async function getTicketByToken(req: functions.https.Request, res: any) {
+  const ticketsRef = collection(db, "tickets");
+
+  const ticketSnapshot = await getDocs(
+    query(ticketsRef, where("qrCodeToken", "==", req.params.ticketToken)),
+  );
+
+  if (ticketSnapshot.empty) {
+    const response: HTTPResponse<undefined> = {
+      status: 404,
+      message: "Ticket not found",
+      error: true,
+    };
+    return res.status(404).send(response);
+  }
+
+  const ticketData = ticketSnapshot.docs[0].data() as Omit<Ticket, "id">;
+  const ticket: Ticket = {
+    id: ticketSnapshot.docs[0].id,
+    ...ticketData,
+  };
+
+  const response: HTTPResponse<Ticket> = {
+    status: 200,
+    message: "Ticket retrieved successfully",
+    data: ticket,
+    error: false,
+  };
+
+  return res.status(200).send(response);
+}
+
+async function getAllTickets(req: functions.https.Request, res: any) {
+  const ticketsRef = collection(db, "tickets");
+  const ticketSnapshot = await getDocs(ticketsRef);
+
+  const tickets: Ticket[] = ticketSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as Omit<Ticket, "id">),
+  }));
+
+  const response: HTTPResponse<Ticket[]> = {
+    status: 200,
+    message: "Tickets retrieved successfully",
+    data: tickets,
+    error: false,
+  };
+
+  res.status(200).send(response);
+}
 
 module.exports = { getTickets };

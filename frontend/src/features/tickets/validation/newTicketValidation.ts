@@ -16,4 +16,5 @@ export const newTicketValidation: Yup.ObjectSchema<NewTicket> =
     singleUse: Yup.boolean().required("Uso único é obrigatório"),
     used: Yup.boolean().required("Usado é obrigatório"),
     used_at: Yup.number().optional(),
+    payment_id: Yup.string().required("ID do pagamento é obrigatório"),
   });

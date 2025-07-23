@@ -16,7 +16,7 @@ import { process_payment } from "./routes/payment/processPayment";
 import { paymentWebhook } from "./routes/payment/webhook";
 import { createTicket } from "./routes/tickets/createTicket";
 import { getTickets } from "./routes/tickets/getTickets";
-import { validateTicket } from "./routes/tickets/validateTicket";
+import { verifyExistingDocRequest } from "./routes/verifyExistingDocRequest";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -41,8 +41,8 @@ setGlobalOptions({ maxInstances: 10 });
 exports.saveLead = saveLead;
 exports.getLeads = getLeads;
 exports.getTickets = getTickets;
-exports.validateTicket = validateTicket;
 exports.createTicket = createTicket;
 exports.paymentWebhook = paymentWebhook;
 exports.login = login;
 exports.process_payment = process_payment;
+exports.verifyExistingDocRequest = verifyExistingDocRequest;

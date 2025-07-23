@@ -4,3 +4,9 @@ export type HTTPResponse<T> = {
   data?: T;
   error: boolean;
 };
+
+export type verifyExistingDocRequest = {
+  type: "leads" | "tickets";
+  phone: string | null;
+  email: string | null;
+};

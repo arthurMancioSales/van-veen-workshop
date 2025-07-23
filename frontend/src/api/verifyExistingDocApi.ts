@@ -1,33 +1,26 @@
 import { routes } from "@/routes/index";
+import { verifyExistingDocApiProps } from "@/types";
 import request, { requestOptions } from "@/utils/request";
 
-import { NewLead } from "../types/leads";
-
-export async function newLeadApi({
-  name,
-  email,
-  birthdate,
-  city,
-  state,
+export async function verifyExistingDocApi({
   phone,
-}: NewLead) {
+  email,
+  type,
+}: verifyExistingDocApiProps) {
   const body = {
-    name,
-    email,
-    birthdate,
-    city,
-    state,
-    phone,
+    phone: phone,
+    email: email,
+    type: type,
   };
 
   try {
     const requestParams: requestOptions = {
-      url: `${routes.saveLead.urlBuilder()}`,
-      method: routes.saveLead.methods.POST,
+      url: `${routes.verifyExistingDocRequest.urlBuilder()}`,
+      method: `${routes.verifyExistingDocRequest.methods.POST}`,
       body,
     };
 
-    const response = await request<{ message: string }>(requestParams);
+    const response = await request<undefined>(requestParams);
     if (response.error) {
       return { data: null as null, error: response.message };
     }

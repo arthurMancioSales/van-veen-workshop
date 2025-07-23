@@ -1,17 +1,11 @@
 import corsLib from "cors";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  or,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import * as functions from "firebase-functions";
 
 import { HTTPResponse } from "../../types";
 import { Lead } from "../../types/leads";
 import { db } from "../../utils/firebaseClient";
+import { verifyExistingDoc } from "../../utils/verifyExistingDoc";
 import { newLeadRequestSchema } from "../../validations/leads/newLeadRequestValidation";
 
 const cors = corsLib({
@@ -51,35 +45,14 @@ export const saveLead = functions.https.onRequest((req, res) => {
 
     const leadsRef = collection(db, "leads");
 
-    try {
-      const q = query(
-        leadsRef,
-        or(
-          where("phone", "==", phone.trim()),
-          where("email", "==", email.trim()),
-        ),
-      );
+    const existingLead = await verifyExistingDoc(
+      leadsRef,
+      phone ? phone.trim() : null,
+      email ? email.trim() : null,
+    );
 
-      const snapshot = await getDocs(q);
-
-      if (!snapshot.empty) {
-        const response: HTTPResponse<Lead> = {
-          status: 409,
-          message: "Lead already exists",
-          data: undefined,
-          error: true,
-        };
-        return res.status(409).send(response);
-      }
-    } catch (error) {
-      const response: HTTPResponse<undefined> = {
-        status: 500,
-        message:
-          "Error checking for existing lead" +
-          (error instanceof Error ? `: ${error.message}` : ""),
-        error: true,
-      };
-      return res.status(500).send(response);
+    if (existingLead.error) {
+      return res.status(existingLead.status).send(existingLead);
     }
 
     const newLead: Omit<Lead, "id"> = {

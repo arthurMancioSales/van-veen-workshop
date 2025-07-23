@@ -1,3 +1,5 @@
+import { v4 } from "uuid";
+
 import { NewTicket, Ticket } from "../types/tickets";
 
 export function newTicket({
@@ -22,7 +24,7 @@ export function newTicket({
     name: name,
     phone: phone,
     status: status,
-    qrCodeToken: "qrCodeToken", // Placeholder, should be generated or passed in
+    qrCodeToken: v4(),
     city: city,
     singleUse: singleUse ?? true,
     used: used ?? false,

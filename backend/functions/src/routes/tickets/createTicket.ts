@@ -7,6 +7,7 @@ import { HTTPResponse } from "../../types";
 import { NewTicket, Ticket } from "../../types/tickets";
 import { db } from "../../utils/firebaseClient";
 import { newTicketRequestSchema } from "../../validations/tickets/newTicketRequestValidation";
+import { authenticateRequest } from "../login/authenticateRequest";
 
 const cors = corsLib({
   // origin:
@@ -19,6 +20,10 @@ const cors = corsLib({
 
 export const createTicket = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
+    const role = authenticateRequest(req, res);
+
+    if (!role) return;
+
     if (req.method !== "POST") {
       const response: HTTPResponse<undefined> = {
         status: 405,

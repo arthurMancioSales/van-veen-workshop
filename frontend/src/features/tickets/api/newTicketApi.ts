@@ -11,7 +11,7 @@ export async function newTicketApi(body: NewTicket) {
       body,
     };
 
-    const response = await request<{ message: string }>(requestParams);
+    const response = await request<number>(requestParams);
     if (response.error) {
       return { data: null as null, error: response.message };
     }

@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { Ticket, TicketStatus } from "../../types/tickets";
 
 export const newTicketRequestSchema: yup.ObjectSchema<
-  Omit<Ticket, "id" | "created_at" | "used_at" | "qrCodeToken">
+  Omit<Ticket, "id" | "created_at" | "used_at" | "qrCodeToken" | "payment_id">
 > = yup.object().shape({
   name: yup.string().min(1, "Name is required").required("Name is required"),
   email: yup
@@ -20,5 +20,4 @@ export const newTicketRequestSchema: yup.ObjectSchema<
   singleUse: yup.boolean().default(true),
   used: yup.boolean().default(false),
   state: yup.string().required("State is required"),
-  payment_id: yup.string().required("Payment ID is required"),
 });
