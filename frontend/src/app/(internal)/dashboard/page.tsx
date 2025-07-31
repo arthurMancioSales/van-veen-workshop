@@ -1,46 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table/dataTable";
+import { Lead } from "@/features/leads/types/leads";
+import { leadsColumnsDef } from "@/features/leads/types/leadsColumnDef";
 import { Ticket } from "@/features/tickets/types/tickets";
 import { ticketsColumnsDef } from "@/features/tickets/types/ticketsColumnDef";
 import useFetch from "@/hooks/useFetch";
 import { routes } from "@/routes";
-
-// Dados de exemplo para Leads e Tickets
-// const mockLeads = [
-//   {
-//     id: "lead-001",
-//     name: "Ana Silva",
-//     email: "ana.silva@example.com",
-//     phone: "(11) 98765-4321",
-//   },
-//   {
-//     id: "lead-002",
-//     name: "Bruno Costa",
-//     email: "bruno.costa@example.com",
-//     phone: "(21) 99876-5432",
-//   },
-//   {
-//     id: "lead-003",
-//     name: "Carla Dias",
-//     email: "carla.dias@example.com",
-//     phone: "(31) 97654-3210",
-//   },
-//   {
-//     id: "lead-004",
-//     name: "Daniela Souza",
-//     email: "daniela.souza@example.com",
-//     phone: "(41) 96543-2109",
-//   },
-//   {
-//     id: "lead-005",
-//     name: "Eduardo Lima",
-//     email: "eduardo.lima@example.com",
-//     phone: "(51) 95432-1098",
-//   },
-// ];
 
 export default function DashboardPage() {
   const {
@@ -51,6 +23,41 @@ export default function DashboardPage() {
     url: routes.tickets.urlBuilder(),
   });
 
+  const router = useRouter();
+
+  const {
+    data: leads,
+    error: leadsError,
+    loading: leadsLoading,
+  } = useFetch<Lead[]>({
+    url: routes.getLeads.urlBuilder(),
+  });
+
+  useEffect(() => {
+    if (!document.cookie.includes("adminToken")) {
+      router.push("/");
+      toast.error(
+        "Você precisa estar logado como administrador para acessar esta página.",
+      );
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (leadsError) {
+      toast.error("Erro", {
+        description: `Erro ao carregar os leads: ${leadsError}`,
+      });
+    }
+  }, [leadsError]);
+
+  useEffect(() => {
+    if (ticketsError) {
+      toast.error("Erro", {
+        description: `Erro ao carregar os tickets: ${ticketsError}`,
+      });
+    }
+  }, [ticketsError]);
+
   if (ticketsError) {
     return (
       <div className="text-red-500">
@@ -59,84 +66,70 @@ export default function DashboardPage() {
       </div>
     );
   }
+  if (leadsError) {
+    return (
+      <div className="text-red-500">
+        Ocorreu um erro ao carregar os leads:{" "}
+        {leadsError || "Erro desconhecido"}
+      </div>
+    );
+  }
+
+  if (leadsLoading) {
+    return (
+      <div className="bg-background relative ml-2  flex h-screen min-h-[100dvh] flex-1 flex-col items-center justify-center overflow-clip p-6 px-4 font-sans md:ml-8 md:p-10 md:px-14 lg:ml-12">
+        Carregando leads...
+      </div>
+    );
+  }
 
   if (ticketsLoading) {
-    return <div className="text-gray-300">Carregando tickets...</div>;
+    return (
+      <div className="bg-background relative ml-2  flex h-screen min-h-[100dvh] flex-1 flex-col items-center justify-center overflow-clip p-6 px-4 font-sans md:ml-8 md:p-10 md:px-14 lg:ml-12">
+        Carregando tickets...
+      </div>
+    );
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-gray-950 p-6 font-sans text-gray-50 md:p-10">
-      <header className="mb-10 flex items-center justify-between border-b border-gray-800 pb-8">
-        <h1 className="text-4xl font-extrabold tracking-tight text-white">
+    <div className="bg-background relative ml-2  flex min-h-[100dvh] flex-1 flex-col overflow-clip p-6 px-4 font-sans md:ml-8 md:p-10 md:px-14 lg:ml-12">
+      <header className="mb-10 flex items-center justify-between  pb-8">
+        <h1 className="font-dm-sans text-4xl font-extrabold tracking-tight">
           Dashboard Interno
         </h1>
         <Button
-          // onClick={() => setIsAuthenticated(false)}
-          variant="outline"
-          className="border-gray-700 bg-gray-800 text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
+          onClick={() => {
+            document.cookie.replace(/(^|;\s*)adminToken=([^;]*)/, () => {
+              document.cookie = `adminToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+              return "";
+            });
+            router.push("/");
+          }}
+          variant="default"
+          className="w-fit"
         >
           Sair
         </Button>
       </header>
 
       <section className="mb-12">
-        <h2 className="mb-6 text-3xl font-bold text-white">
+        <h2 className="font-dm-sans mb-6 text-3xl font-bold">
           Leads Cadastrados
         </h2>
-        <Card className="border border-gray-700 bg-gray-900 p-0 shadow-lg ">
+        <Card className="bg-primary20 border-primary35 border p-0 shadow-lg ">
           <CardContent className="overflow-clip p-0 py-0">
-            <DataTable columns={ticketsColumnsDef} data={tickets} />
+            <DataTable columns={leadsColumnsDef} data={leads} />
           </CardContent>
         </Card>
       </section>
 
       <section>
-        <h2 className="mb-6 text-3xl font-bold text-white">
-          Tickets de Suporte
+        <h2 className="font-dm-sans mb-6 text-3xl font-bold">
+          Ingressos Vendidos
         </h2>
-        <Card className="border border-gray-700 bg-gray-900 shadow-lg">
-          <CardContent className="p-0">
-            {/* <Table>
-              <TableHeader>
-                <TableRow className="bg-gray-800 hover:bg-gray-800">
-                  <TableHead className="w-[100px] text-gray-300">ID</TableHead>
-                  <TableHead className="text-gray-300">Assunto</TableHead>
-                  <TableHead className="text-gray-300">Status</TableHead>
-                  <TableHead className="text-gray-300">Criado Em</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mockTickets.map((ticket) => (
-                  <TableRow
-                    key={ticket.id}
-                    className="hover:bg-gray-850 border-gray-800"
-                  >
-                    <TableCell className="font-medium text-gray-400">
-                      {ticket.id}
-                    </TableCell>
-                    <TableCell className="text-gray-300">
-                      {ticket.subject}
-                    </TableCell>
-                    <TableCell className="text-gray-300">
-                      {ticket.status}
-                    </TableCell>
-                    <TableCell className="text-gray-300">
-                      {ticket.createdAt}
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {mockTickets.length === 0 && (
-                  <TableRow>
-                    <TableCell
-                      colSpan={4}
-                      className="h-24 text-center text-gray-400"
-                    >
-                      Nenhum ticket cadastrado.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table> */}
+        <Card className="bg-primary20 border-primary35 border p-0 shadow-lg">
+          <CardContent className="rounded-md p-0">
+            <DataTable columns={ticketsColumnsDef} data={tickets} />
           </CardContent>
         </Card>
       </section>

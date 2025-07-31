@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Ibarra_Real_Nova } from "next/font/google";
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ibarra = Ibarra_Real_Nova({
   subsets: ["latin"],
 });
 
@@ -26,10 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <main>{children}</main>
+      <body className={`${ibarra.className} antialiased`}>
+        <main className="text-foreground bg-[repeating-linear-gradient(180deg,_#fad262_0,_#fad262_180px,_#ff791c_180px,_#ff791c_360px,_#fe5f48_360px,_#fe5f48_540px,_#7f2ba6_540px,_#7f2ba6_720px,_#4b67fe_720px,_#4b67fe_900px)]">
+          {children}
+        </main>
         <Toaster richColors />
       </body>
     </html>

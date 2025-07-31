@@ -182,11 +182,7 @@ export default function NewLeadForm({
               </FormFieldLabel>
               <Popover open={openBirthdate} onOpenChange={setOpenBirthDate}>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    id="date"
-                    className="border border-white bg-gray-900 p-6 text-gray-50"
-                  >
+                  <Button variant="outline" id="date">
                     {values.birthdate > 0
                       ? format(new Date(values.birthdate), "dd/MM/yyyy", {
                           locale: ptBR,

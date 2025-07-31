@@ -20,12 +20,12 @@ export function NewLeadModal({ children }: { children: React.ReactNode }) {
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-h-[80vh] overflow-y-scroll rounded-xl border border-gray-700 bg-gray-900 p-6 text-gray-50 sm:max-w-[475px]">
+      <DialogContent className="border-primary35 bg-background max-h-[80vh] overflow-y-scroll rounded-xl border p-6 sm:max-w-[475px] md:max-w-[70vw]">
         <DialogHeader className="text-center">
-          <DialogTitle className="mb-2 text-3xl font-bold text-white">
+          <DialogTitle className="font-dm-sans mb-2 text-3xl font-bold">
             Manifeste seu Interesse
           </DialogTitle>
-          <DialogDescription className="text-lg text-gray-400">
+          <DialogDescription className="text-lg">
             Entraremos em contato quando mais vagas estiverem disponíveis.
           </DialogDescription>
         </DialogHeader>

@@ -27,4 +27,7 @@ export type Ticket = {
   payment_id: string;
 };
 
-export type NewTicket = Omit<Ticket, "id" | "created_at" | "qrCodeToken">;
+export type NewTicket = Omit<
+  Ticket,
+  "id" | "created_at" | "qrCodeToken" | "payment_id"
+>;

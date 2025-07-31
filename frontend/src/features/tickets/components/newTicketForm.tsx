@@ -46,7 +46,6 @@ export default function NewTicketForm({
     status: newTicketData?.status || TicketStatus.in_process,
     singleUse: newTicketData?.singleUse || false,
     used: newTicketData?.used || false,
-    payment_id: newTicketData?.payment_id || "",
   };
 
   return (
@@ -188,11 +187,7 @@ export default function NewTicketForm({
               </FormFieldLabel>
               <Popover open={openBirthdate} onOpenChange={setOpenBirthDate}>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    id="date"
-                    className="border border-white bg-gray-900 p-6 text-gray-50"
-                  >
+                  <Button id="date" variant="secondary">
                     {values.birthdate > 0
                       ? format(new Date(values.birthdate), "dd/MM/yyyy", {
                           locale: ptBR,
@@ -226,7 +221,7 @@ export default function NewTicketForm({
 
           <div className="flex w-full justify-between gap-4 self-end">
             <Button
-              variant="ghost"
+              variant="outline"
               onClick={() => wizardController.previousStep()}
               className="w-fit"
             >
@@ -237,7 +232,7 @@ export default function NewTicketForm({
               loading={isSubmitting}
               className="w-fit"
               type="submit"
-              variant="ghost"
+              variant="outline"
               disabled={Object.keys(errors).length > 0}
             >
               <ChevronRight className="mr-2 h-4 w-4" />

@@ -1,8 +1,5 @@
 import { initMercadoPago, StatusScreen } from "@mercadopago/sdk-react";
-import {
-  IStatusScreenBrickCustomization,
-  IStatusScreenBrickInitialization,
-} from "@mercadopago/sdk-react/esm/bricks/statusScreen/types";
+import { IStatusScreenBrickInitialization } from "@mercadopago/sdk-react/esm/bricks/statusScreen/types";
 import { X } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
@@ -27,16 +24,6 @@ export default function StatusStep({
     [paymentId],
   );
 
-  const customization: IStatusScreenBrickCustomization = useMemo(() => {
-    return {
-      visual: {
-        style: {
-          theme: "dark",
-        },
-      },
-    };
-  }, []);
-
   const onError = async () => {
     toast.error("Erro", {
       description: "Ocorreu um erro ao processar o status do pagamento.",
@@ -45,11 +32,7 @@ export default function StatusStep({
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <StatusScreen
-        initialization={initialization}
-        customization={customization}
-        onError={onError}
-      />
+      <StatusScreen initialization={initialization} onError={onError} />
       <div className="flex w-full justify-between gap-4 self-end">
         <Button
           variant="ghost"

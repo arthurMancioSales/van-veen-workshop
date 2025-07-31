@@ -40,7 +40,7 @@ const FormField = React.forwardRef<HTMLInputElement, InputType>(
             name={props.name}
             type={inputType}
             className={cn(
-              "flex h-10 w-full rounded-md border px-3 bg-transparent py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/70 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+              "flex h-10 w-full rounded-md border-2 px-3 bg-transparent py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/70 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
               Icon && "pl-10",
               error && touched ? "border-solid border-destructive" : "",
               className,

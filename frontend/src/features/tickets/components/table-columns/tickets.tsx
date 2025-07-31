@@ -306,3 +306,30 @@ export function usedColumn(title = "usado") {
 
   return usedColumn;
 }
+
+export function paymentIdColumn(title = "id do pagamento") {
+  const paymentIdColumn: ColumnDef<Ticket> = {
+    accessorKey: "payment_id",
+    id: "payment_id",
+    meta: "id do pagamento",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={title} />
+    ),
+    cell: ({ row }) => {
+      return (
+        <Badge
+          variant={row.getValue("used") ? "destructive" : "success"}
+          className={cn(
+            "before:absolute before:left-4 mobileS:before:left-[0.1rem] before:top-1/4 before:w-2/5 before:text-lg before:font-bold before:capitalize  lg:before:hidden",
+            `before:content-['${title}']`,
+          )}
+          data-cell-payment-id={row.getValue("payment_id")}
+        >
+          {row.getValue("payment_id")}
+        </Badge>
+      );
+    },
+  };
+
+  return paymentIdColumn;
+}

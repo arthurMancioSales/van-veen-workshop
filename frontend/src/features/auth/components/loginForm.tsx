@@ -61,7 +61,6 @@ export default function LoginForm() {
                 error={errors.password}
                 touched={touched.password}
                 required
-                className="border-gray-700 bg-gray-800 text-gray-50 focus:border-purple-500 focus:ring-purple-500"
               />
               <FormFieldError
                 error={errors.password as string}

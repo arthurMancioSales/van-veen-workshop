@@ -4,7 +4,9 @@ export const ticketsRoutes = {
   tickets: routeBuilder(
     ["GET"],
     (params: { ticketId?: string; page?: number; size?: number }) => {
-      const baseUrl = "https://gettickets-566pzglqfa-uc.a.run.app";
+      // const baseUrl = "https://gettickets-566pzglqfa-uc.a.run.app";
+      const baseUrl =
+        "http://127.0.0.1:5001/van-veen-workshop/us-central1/getTickets";
 
       const searchParams = new URLSearchParams();
       if (params?.page) searchParams.append("page", `${params.page}`);

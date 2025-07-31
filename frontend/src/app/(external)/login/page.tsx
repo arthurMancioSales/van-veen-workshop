@@ -5,14 +5,12 @@ import LoginForm from "@/features/auth/components/loginForm";
 
 export default function Login() {
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-gray-950 text-gray-50">
-      <Card className="w-full max-w-md border border-gray-700 bg-gray-900 shadow-lg">
+    <div className="bg-background relative ml-2 flex min-h-[100dvh] flex-1 items-center justify-center overflow-clip px-4 md:ml-8 md:px-14 lg:ml-12 ">
+      <Card className="bg-primary20 border-primary35 w-full max-w-md border shadow-lg">
         <CardHeader className="text-center">
-          <Lock className="mx-auto mb-4 h-12 w-12 text-purple-400" />
-          <CardTitle className="text-3xl font-bold text-white">
-            Acesso Restrito
-          </CardTitle>
-          <p className="text-gray-400">
+          <Lock className="text-accent mx-auto mb-4 h-12 w-12" />
+          <CardTitle className="text-3xl font-bold">Acesso Restrito</CardTitle>
+          <p className="">
             Por favor, insira a senha para acessar o dashboard.
           </p>
         </CardHeader>

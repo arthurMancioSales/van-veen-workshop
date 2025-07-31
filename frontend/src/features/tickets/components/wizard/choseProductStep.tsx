@@ -31,16 +31,16 @@ export default function ChoseProductStep({
         {products.map((product) => (
           <Card
             key={product.id}
-            className="flex flex-col justify-between border border-gray-700 bg-gray-800 transition-all hover:border-purple-500"
+            className="border-secondary35 bg-secondary20 flex flex-col justify-between border transition-all"
           >
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl font-bold text-white">
+              <CardTitle className="font-dm-sans text-2xl font-bold">
                 {product.name}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base text-gray-300">{product.description}</p>
-              <div className="text-3xl font-extrabold text-purple-400">
+              <p className="text-base">{product.description}</p>
+              <div className="text-3xl font-extrabold ">
                 {new Intl.NumberFormat("pt-BR", {
                   style: "currency",
                   currency: "BRL",
@@ -51,7 +51,7 @@ export default function ChoseProductStep({
                   setPrice(product.price);
                   wizardController.nextStep();
                 }}
-                className="w-full cursor-pointer rounded-lg bg-gradient-to-r from-purple-600 to-indigo-700 text-lg font-bold text-white shadow-lg transition-all hover:from-purple-700 hover:to-indigo-800"
+                className="bg-accent80 hover:bg-accent60 active:bg-accent-60 focus:bg-accent60 w-full cursor-pointer rounded-lg text-white transition-all hover:scale-105"
               >
                 Selecionar
               </Button>
@@ -59,7 +59,7 @@ export default function ChoseProductStep({
           </Card>
         ))}
       </div>
-      <small className="pt-4 text-center text-sm text-gray-400">
+      <small className="pt-4 text-center text-sm ">
         Ao selecionar, você será direcionado(a) para o formulário de pagamento.
       </small>
     </>

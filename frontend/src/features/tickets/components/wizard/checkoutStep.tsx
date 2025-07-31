@@ -51,11 +51,6 @@ export default function CheckoutStep({
         maxInstallments: 12,
         minInstallments: 1,
       },
-      visual: {
-        style: {
-          theme: "dark",
-        },
-      },
     }),
     [],
   );
@@ -100,7 +95,7 @@ export default function CheckoutStep({
       />
       <div className="flex w-full justify-between gap-4 self-end">
         <Button
-          variant="ghost"
+          variant="outline"
           onClick={() => wizardController.previousStep()}
           className="mr-auto w-fit"
         >

@@ -44,12 +44,12 @@ export function NewTicketModal({ children }: { children: React.ReactNode }) {
       }}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-h-[80vh] overflow-y-scroll rounded-xl border border-gray-700 bg-gray-900 p-6 text-gray-50 sm:max-w-[475px] md:max-w-[70vw]">
+      <DialogContent className="border-primary35 bg-background max-h-[80vh] overflow-y-scroll rounded-xl border p-6 sm:max-w-[475px] md:max-w-[70vw]">
         <DialogHeader className="text-center">
-          <DialogTitle className="mb-2 text-3xl font-bold text-white">
+          <DialogTitle className="font-dm-sans mb-2 text-3xl font-bold">
             Reserve já o seu ingresso
           </DialogTitle>
-          <DialogDescription className="text-lg text-gray-400">
+          <DialogDescription className="text-lg">
             Escolha o produto, preencha os dados do ingresso e finalize a
             compra.
           </DialogDescription>

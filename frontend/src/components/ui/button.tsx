@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/utils/cn";
 
 const buttonVariants = cva(
-  "ring-offset-background focus-visible:ring-ring inline-flex w-full items-center justify-center rounded-md text-sm font-medium shadow-inner transition-all duration-300 hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-90 disabled:brightness-75",
+  "ring-offset-background focus-visible:ring-ring inline-flex w-full items-center justify-center rounded-md text-sm font-medium transition-all duration-300 hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-90 disabled:brightness-75",
   {
     variants: {
       variant: {
@@ -17,11 +17,11 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/70 active:bg-destructive/90",
         outline:
-          "border-input bg-background hover:bg-secondary hover:text-accent-foreground active:bg-secondary/30 border",
+          "border-input bg-background hover:bg-secondary50 hover:text-accent-foreground active:bg-secondary/30 border",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/90",
+          "bg-secondary60 text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/90",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground active:bg-accent/90",
+          "hover:bg-accent20 hover:text-accent-foreground active:bg-accent20",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
