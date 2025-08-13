@@ -1,18 +1,17 @@
 "use client";
 
 import {
-  CheckCircle2,
-  MapPin,
   CalendarDays,
-  Users,
-  Award,
+  Check,
+  CheckCircle2,
   Clock,
-  Lightbulb,
-  GraduationCap,
-  Handshake,
+  MapPin,
+  Users,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,28 +19,95 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { NewLeadModal } from "@/features/leads/components/newLeadModal";
-import { NewTicketModal } from "@/features/tickets/components/newTicketModal";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function Component() {
+  const plansData = [
+    {
+      name: "Passaporte",
+      benefits: {
+        seminarios: true,
+        preceptorias: true,
+        feedbacks: true,
+        analise: false,
+        devolutiva: false,
+        mentorias: false,
+      },
+      price: "6x R$ 1.500,00",
+      altPrice: "(ou 12x R$ 870,00)",
+      highlight: false,
+    },
+    {
+      name: "Imersão",
+      benefits: {
+        seminarios: true,
+        preceptorias: true,
+        feedbacks: true,
+        analise: true,
+        devolutiva: true,
+        mentorias: true,
+      },
+      price: "R$ 9.990,00",
+      altPrice: "6x R$ 1.850,00 (ou 12x R$ 1.150,00)",
+      highlight: false,
+    },
+    {
+      name: "Pioneiro",
+      benefits: {
+        seminarios: true,
+        preceptorias: true,
+        feedbacks: true,
+        analise: true,
+        devolutiva: true,
+        mentorias: true,
+      },
+      price: "R$ 8.800,00",
+      altPrice: "(ou 6x R$ 1.580,00)",
+      highlight: true,
+      limitedSpots: "APENAS 10 VAGAS",
+    },
+  ];
+
   return (
     <div className="flex min-h-dvh flex-col font-sans ">
       <main className="bg-background relative ml-2 flex-1 overflow-clip px-4 md:ml-8 md:px-14 lg:ml-12">
         {/* Seção Herói */}
         <section className="flex w-full items-center justify-start overflow-y-visible pt-8 pb-36 text-center md:w-4/5 md:pt-10 lg:pt-18">
-          <div className="pointer-events-none absolute inset-0 top-0 z-0 max-h-screen bg-[url('/images/be-kind-logo.svg')] bg-contain bg-no-repeat opacity-10 md:translate-x-1/2 md:opacity-40 lg:translate-x-2/3 lg:translate-y-1/5" />
+          <div className="pointer-events-none absolute inset-0 top-0 z-0 max-h-screen bg-[url('/images/be-kind-logo.svg')] bg-contain bg-no-repeat opacity-10 md:translate-x-1/2 md:opacity-40 lg:translate-x-2/3 lg:translate-y-1/12" />
           <div className="z-10 max-w-5xl space-y-8">
             <div className="flex flex-col items-center md:items-start">
               <h1 className="font-dm-sans text-2xl leading-tight font-bold tracking-tight sm:text-3xl md:text-left md:text-4xl lg:text-6xl">
-                Do Diploma ao Destaque Global:{" "}
-                <br className="hidden md:inline" />
+                Não Apenas Entre na Melhor Universidade. Prepare-se para Liderar
+                Nela.
               </h1>
-              <h2 className="font-dm-sans w-8/12 text-left text-xl leading-tight font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-5xl">
-                O Passaporte para a Liderança do Futuro
-              </h2>
             </div>
-            <div className="relative flex aspect-video max-w-4xl items-center justify-center overflow-hidden rounded-xl border md:w-4/5 ">
-              {/* Placeholder para o vídeo. Substitua o src pelo URL real do seu vídeo. */}
+            <div className="mb-12 max-w-3xl text-left">
+              <p className="text-lg leading-relaxed opacity-90 md:text-xl">
+                Apresentamos a <strong>Formação de Líderes Globais</strong>: uma
+                jornada de formação inédita, nascida da união estratégica entre
+                o <strong>Instituto Van Veen</strong> e a{" "}
+                <strong>Be Kind</strong>. Integramos a mais alta expertise em
+                admissões e bolsas de estudo para as universidades mais
+                competitivas do mundo com o desenvolvimento profundo das soft
+                skills que essas mesmas instituições — e o mercado de trabalho
+                global — realmente exigem.
+              </p>
+            </div>
+            {/* <div className="relative flex aspect-video max-w-4xl items-center justify-center overflow-hidden rounded-xl border md:w-4/5 ">
               <iframe
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=example" // Substitua por um URL de vídeo real
                 title="Vídeo da Palestra"
@@ -51,7 +117,7 @@ export default function Component() {
                 allowFullScreen
                 className="absolute top-0 left-0 h-full w-full"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col justify-center gap-2 md:w-4/5 ">
               <Button
                 variant="default"
@@ -60,222 +126,899 @@ export default function Component() {
                 <Link href="#inscricao">GARANTA A VAGA AGORA</Link>
               </Button>
               <p className="font-dm-sans text-accent mt-2 text-sm font-medium uppercase">
-                Vagas limitadas
+                Vagas limitadas para turmas fechadas. Inscrições abertas.
               </p>
             </div>
           </div>
         </section>
 
-        {/* O Paradoxo do Sucesso */}
+        <section className="w-full  py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto max-w-5xl space-y-8 px-4 md:px-6">
+            <h2 className="font-dm-sans text-center text-3xl leading-tight font-bold tracking-tight sm:text-4xl md:text-5xl">
+              Criado e Guiado Pessoalmente Por:
+            </h2>
+            <div className="mx-auto grid max-w-3xl gap-8 md:grid-cols-3">
+              {/* Nicola Van Veen */}
+              <div className="flex flex-col items-center">
+                <Avatar className="mb-4 h-24 w-24">
+                  <AvatarImage
+                    src="/images/nicolas.jpeg"
+                    alt="Nicola Van Veen"
+                  />
+                  <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                    NV
+                  </AvatarFallback>
+                </Avatar>
+                <h4 className="text-lg font-semibold">Nicola Van Veen</h4>
+                <h5 className="text-sm opacity-75">
+                  Fundador, Instituto Van Veen
+                </h5>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-secondary/60 hover:bg-secondary/10 hover:text-secondary text-foreground"
+                    >
+                      Mais Informações
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-[400px] sm:w-[540px]">
+                    <SheetHeader>
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage
+                            src="/images/nicolas.jpeg"
+                            alt="Nicola Van Veen"
+                          />
+                          <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                            NV
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <SheetTitle className="text-xl">
+                            Nicolas Van Veen
+                          </SheetTitle>
+                          <SheetDescription className="text-base">
+                            Fundador, Instituto Van Veen
+                          </SheetDescription>
+                        </div>
+                      </div>
+                    </SheetHeader>
+
+                    <div className="space-y-6 p-4 pt-0">
+                      <h4 className="mb-2 font-semibold">Sobre</h4>
+                      <div className="max-h-[75vh] overflow-y-scroll">
+                        <small className="text-muted-foreground text-base leading-relaxed">
+                          Nicolas Van Veen tem uma formação multifacetada.
+                          Membro da Sociedade Real de História, da Biblical
+                          Archeology Society (EUA) e da Sociedade Brasileira de
+                          Teoria da História e Historiografia, com sede em Ouro
+                          Preto, Minas Gerais. Com formação em história, com
+                          ênfase em história antiga e medieval, possui cursos em
+                          Metodologia da Pesquisa Científica pelo Instituto
+                          Federal de Minas Gerais, Metodologia Científica pelo
+                          Instituto Federal do Rio Grande do Sul e Filosofia da
+                          Ciência e Teoria do Conhecimento pela Universidade
+                          Santo Amaro. Nicolas, no entanto, gosta de salientar
+                          que sua formação mais importante está em ser o segundo
+                          discípulo do Mestre Lee Won Wah, formado pelo
+                          Instituto Yau Man de Wu Shu de Artes Marciais e
+                          Cultura Chinesa em 1992, com sede em São José dos
+                          Campos, São Paulo. Nicolas Van Veen trabalhou como
+                          colaborador no British Council e na Macmillan do
+                          Brasil e também colaborou com a NUFFIC NESO Brazil
+                          (órgão do governo holandês para o ensino superior).
+                          Ministrou palestras sobre educação internacional em
+                          universidades como UEPB, UNICAMP e UNESP. É fundador
+                          do Instituto Van Veen em 2012 e já ajudou mais de 250
+                          alunos em aprovações com bolsas de estudos em
+                          universidades internacionais.
+                        </small>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+
+              {/* Lilian Macri */}
+              <div className="flex flex-col items-center">
+                <Avatar className="mb-4 h-24 w-24">
+                  <AvatarImage
+                    src="/images/lilian-macri.jpeg"
+                    alt="Lilian Macri"
+                  />
+                  <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                    LM
+                  </AvatarFallback>
+                </Avatar>
+                <h4 className="text-lg font-semibold">Lilian Macri</h4>
+                <h5 className="text-sm opacity-75">Fundadora, Be Kind</h5>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-secondary/60 hover:bg-secondary/10 hover:text-secondary text-foreground"
+                    >
+                      Mais Informações
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-[400px] sm:w-[540px]">
+                    <SheetHeader>
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage
+                            src="/images/lilian-macri.jpeg"
+                            alt="Lilian Macri"
+                          />
+                          <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                            LM
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <SheetTitle className="text-xl">
+                            Lilian Macri
+                          </SheetTitle>
+                          <SheetDescription className="text-base">
+                            Fundadora, Be Kind
+                          </SheetDescription>
+                        </div>
+                      </div>
+                    </SheetHeader>
+
+                    <div className="space-y-6 p-4 pt-0">
+                      <h4 className="mb-2 font-semibold">Sobre</h4>
+                      <div className="max-h-[75vh] overflow-y-scroll">
+                        <small className="text-muted-foreground text-base leading-relaxed">
+                          Lilian Rosa Daher Macri é mãe da Yasmin, de 22 anos, e
+                          do Giuseppe, de 15. Médica pela UNITAU, mestre em
+                          Desenvolvimento Humano, educadora em sexualidade pelo
+                          UNISAL e terapeuta sexual pela USP e SBRASH, é também
+                          facilitadora apaixonada por ajudar adolescentes a
+                          descobrirem e desenvolverem todo o seu potencial.
+                          Especialista em Bullyying e com ampla experiência em
+                          formação de professores, mediação de conflitos
+                          escolares e treinamentos de soft skills, Lilian cria
+                          experiências de aprendizado dinâmicas, práticas e
+                          conectadas à vida real. Tem se dedicado a preparar
+                          adolescentes a conquistar espaço no mercado de
+                          trabalho global, com foco em competências como
+                          liderança, comunicação, gestão do tempo e inteligência
+                          emocional
+                        </small>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+
+              {/* Lilian Paula Mônaco */}
+              <div className="flex flex-col items-center">
+                <Avatar className="mb-4 h-24 w-24">
+                  <AvatarImage
+                    src="/lilian-monaco.png"
+                    alt="Lilian Paula Mônaco"
+                  />
+                  <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                    LP
+                  </AvatarFallback>
+                </Avatar>
+                <h4 className="text-lg font-semibold">Lilian Paula Mônaco</h4>
+                <h5 className="text-sm opacity-75">Fundadora, Be Kind</h5>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-secondary/60 hover:bg-secondary/10 hover:text-secondary text-foreground"
+                    >
+                      Mais Informações
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-[400px] sm:w-[540px]">
+                    <SheetHeader>
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage
+                            src="/lilian-monaco.png"
+                            alt="Lilian Paula Mônaco"
+                          />
+                          <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
+                            LP
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <SheetTitle className="text-xl">
+                            Lilian Paula Mônaco
+                          </SheetTitle>
+                          <SheetDescription className="text-base">
+                            Fundadora, Be Kind
+                          </SheetDescription>
+                        </div>
+                      </div>
+                    </SheetHeader>
+
+                    <div className="space-y-6 p-4 pt-0">
+                      <h4 className="mb-2 font-semibold">Sobre</h4>
+                      <div className="max-h-[75vh] overflow-y-scroll">
+                        <small className="text-muted-foreground text-base leading-relaxed">
+                          Nicolas Van Veen tem uma formação multifacetada.
+                          Membro da Sociedade Real de História, da Biblical
+                          Archeology Society (EUA) e da Sociedade Brasileira de
+                          Teoria da História e Historiografia, com sede em Ouro
+                          Preto, Minas Gerais. Com formação em história, com
+                          ênfase em história antiga e medieval, possui cursos em
+                          Metodologia da Pesquisa Científica pelo Instituto
+                          Federal de Minas Gerais, Metodologia Científica pelo
+                          Instituto Federal do Rio Grande do Sul e Filosofia da
+                          Ciência e Teoria do Conhecimento pela Universidade
+                          Santo Amaro. Nicolas, no entanto, gosta de salientar
+                          que sua formação mais importante está em ser o segundo
+                          discípulo do Mestre Lee Won Wah, formado pelo
+                          Instituto Yau Man de Wu Shu de Artes Marciais e
+                          Cultura Chinesa em 1992, com sede em São José dos
+                          Campos, São Paulo. Nicolas Van Veen trabalhou como
+                          colaborador no British Council e na Macmillan do
+                          Brasil e também colaborou com a NUFFIC NESO Brazil
+                          (órgão do governo holandês para o ensino superior).
+                          Ministrou palestras sobre educação internacional em
+                          universidades como UEPB, UNICAMP e UNESP. É fundador
+                          do Instituto Van Veen em 2012 e já ajudou mais de 250
+                          alunos em aprovações com bolsas de estudos em
+                          universidades internacionais.
+                        </small>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Seção 2: O Ponto Cego da Educação de Elite */}
+        <section className=" w-full py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto flex max-w-5xl flex-col items-center px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                O Ponto Cego da Educação:
+                <br />O Que as Notas Mais Altas Não Conseguem Medir
+              </h2>
+            </div>
+
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                <CarouselItem className="lg:basis-1/3">
+                  <Card className="border-secondary35 h-full">
+                    <CardHeader>
+                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                        Seu filho(a) estuda nas melhores escolas. Isso é o
+                        suficiente?
+                      </h3>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="indent-4 leading-relaxed">
+                        Você investe em uma educação de ponta, garantindo um
+                        futuro brilhante. Mas o mundo mudou, e as regras para o
+                        sucesso também.
+                      </p>
+                    </CardContent>
+                    <CardFooter />
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="lg:basis-1/3">
+                  <Card className="border-secondary35 h-full">
+                    <CardHeader>
+                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                        O que Harvard, Google e os Comitês de Admissão procuram?
+                      </h3>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <p className="indent-4 leading-relaxed">
+                        Ao estudar seus melhores líderes, o Google descobriu que
+                        as 7 qualidades mais importantes eram{" "}
+                        <strong>habilidades humanas,</strong> competência
+                        técnica ficou em último
+                      </p>
+                      <p className="indent-4 leading-relaxed">
+                        Pesquisadores afirmam que a{" "}
+                        <strong>Inteligência Emocional,</strong> que engloba{" "}
+                        <strong>resiliência e autoconhecimento, </strong> é um
+                        preditor de sucesso mais forte que o QI e expertise
+                        técnica em cargos de liderança.
+                      </p>
+                      <p className="indent-4 leading-relaxed">
+                        Afirmam consistentemente que, entre candidatos com notas
+                        perfeitas, o principal diferenciador são as{" "}
+                        <strong>qualidades pessoais: </strong>
+                        caráter, propósito e a capacidade de contribuir com a
+                        comunidade.
+                      </p>
+                    </CardContent>
+                    <CardFooter>
+                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
+                        Eles não buscam apenas os mais inteligentes. Buscam os
+                        mais adaptáveis, colaborativos e resilientes.
+                      </p>
+                    </CardFooter>
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="lg:basis-1/3">
+                  <Card className="border-secondary35 h-full">
+                    <CardHeader>
+                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                        O Mercado de Trabalho já vive uma crise de habilidades.
+                      </h3>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <p className="indent-4 leading-relaxed">
+                        <strong>6 em cada 10 empresas</strong> já lutam para
+                        encontrar talentos com habilidades (soft skills)
+                        necessárias.
+                      </p>
+                      <p className="indent-4 leading-relaxed">
+                        O treinamento em
+                        <strong> liderança e influência social </strong>é a
+                        <strong> 3ª maior prioridade de investimento </strong>
+                        das empresas para seus funcionários atuais. Elas estão
+                        pagando para ensinar o que as escolas não ensinaram.
+                      </p>
+                      <p className="indent-4 leading-relaxed">
+                        A confiança de que os jovens sairão preparados das
+                        escolas está em
+                        <strong> queda livre. </strong>O Fórum Econômico Mundial
+                        projeta que o gap só
+                        <strong> irá piorar nos próximos 5 anos.</strong>
+                      </p>
+                    </CardContent>
+                    <CardFooter>
+                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
+                        Fonte: Relatório &quot;Future of Jobs&quot;, Fórum
+                        Econômico Mundial.
+                      </p>
+                    </CardFooter>
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="lg:basis-1/3">
+                  <Card className="border-secondary35 h-full">
+                    <CardHeader>
+                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                        Por que as escolas, mesmo as de elite, não conseguem
+                        acompanhar?
+                      </h3>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <ul className="list-disc space-y-3 pl-6 ">
+                        <li>
+                          <strong>Currículo Rígido: </strong> O foco absoluto em
+                          vestibulares e exames padronizados consome todo o
+                          tempo e energia, deixando pouco espaço para o
+                          desenvolvimento humano.
+                        </li>
+                        <li>
+                          <strong>Mudança Lenta: </strong> O mercado evolui em
+                          meses; as escolas, em décadas. A mudança é burocrática
+                          e demorada.
+                        </li>
+                        <li>
+                          <strong>Foco na Teoria: </strong> Ensinam &quot;o que
+                          é&quot; pensamento crítico, mas não criam ambientes
+                          para &quot;praticar&quot; a liderança e a resiliência
+                          sob pressão.
+                        </li>
+                      </ul>
+                    </CardContent>
+                    <CardFooter>
+                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
+                        Esperar pela mudança do sistema educacional não é uma
+                        opção para quem quer liderar o futuro.
+                      </p>
+                    </CardFooter>
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="lg:basis-1/3">
+                  <Card className="border-secondary35 h-full">
+                    <CardHeader>
+                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                        A Preparação que Começa na Adolescência.
+                      </h3>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="indent-4 leading-relaxed">
+                        Enquanto o sistema se adapta, nós agimos. Nossa
+                        <strong> Formação de Líderes Globais </strong>é o
+                        laboratório prático projetado para
+                        <strong> jovens de 14 a 17 anos, </strong>
+                        preenchendo essa lacuna de forma imediata e
+                        personalizada.
+                        <strong> Benefícios:</strong>
+                      </p>
+                      <ul className="list-disc space-y-3 pl-6 ">
+                        <li>
+                          <strong>Metodologia Aplicada: </strong>
+                          Dinâmicas e projetos que simulam os desafios do mundo
+                          real.
+                        </li>
+                        <li>
+                          <strong>
+                            Especialistas em Desenvolvimento Jovem:{" "}
+                          </strong>{" "}
+                          Guiado por mentores com experiência em formar a
+                          próxima geração.
+                        </li>
+                        <li>
+                          <strong>Acompanhamento Individualizado: </strong> Para
+                          uma transformação personalizada e real.
+                        </li>
+                      </ul>
+                    </CardContent>
+                    <CardFooter>
+                      <p className="text-accent text-lg leading-relaxed font-bold ">
+                        Prepare seu filho(a) para o futuro, hoje. Clique no link
+                        da bio e conheça a Jornada 1: Fundamentos da Liderança.
+                      </p>
+                    </CardFooter>
+                  </Card>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </section>
+
+        {/* Seção 3: "Apresentando a Formação de Líderes Globais" */}
         <section className="w-full  py-16 md:py-28 lg:py-36">
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
-                O Paradoxo do Sucesso: <br /> Por que Boas Notas Não Bastam?
+                Apresentando a Formação de Líderes Globais
               </h2>
               <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                Olhamos para as notas de nossos filhos e entendemos que isso é
-                um atestado de sua inteligência, disciplina e do nosso
-                compromisso em prover a melhor educação. As boas notas comprovam
-                o conhecimento técnico – o passaporte essencial para abrir as
-                primeiras portas.
+                A <strong> Jornada 1 </strong>é a imersão fundamental de 6 meses
+                que constrói o alicerce para uma candidatura de sucesso e uma
+                vida de impacto. Em cada etapa, nós integramos o desenvolvimento
+                de uma
+                <strong> competência comportamental de elite </strong>
+                com a<strong> aplicação estratégica </strong>
+                no processo de admissão.
               </p>
               <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                Mas a vida, dentro e fora da universidade, é muito mais do que
-                conhecimento técnico.
+                Não apenas ensinamos o &quot;o quê&quot;, nós desenvolvemos
+                &quot;quem&quot; seu filho(a) precisa se tornar.
               </p>
-              <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                Pesquisas de Google, Harvard e LinkedIn confirmam que, uma vez
-                atingido um nível técnico, as habilidades humanas (soft skills)
-                são o principal diferencial para o sucesso na carreira e na
-                liderança.
-              </p>
-              <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                O Google, por exemplo, com seus projetos Oxygen e Aristotle,
-                descobriu que as 7 principais características do sucesso de seus
-                melhores líderes são todas soft skills.
-              </p>
-              <Link
-                href="https://rework.withgoogle.com/blog/the-evolution-of-project-oxygen/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:decoration-accent text-lg font-medium underline decoration-transparent transition-all"
-              >
-                Leia mais no blog oficial do Google
-              </Link>
             </div>
-            <div className="grid gap-12 py-12 md:grid-cols-2 lg:grid-cols-2">
+          </div>
+        </section>
+
+        {/* Seção 4:  "Nossa Filosofia: Formando o Ser Humano por Trás da Candidatura" */}
+        <section className="w-full  py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto max-w-5xl px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                Nossa Filosofia: Formando o Ser Humano por Trás da Candidatura
+              </h2>
+              <div className="max-w-[800px] space-y-4">
+                <p className=" leading-relaxed  md:text-lg">
+                  As universidades de elite não perguntam apenas &ldquo;O que
+                  você sabe?&rdquo;, mas, fundamentalmente,
+                  <strong> &ldquo;Quem é você?&rdquo;. </strong>
+                  Elas buscam jovens capazes de pensar com profundidade, agir
+                  com responsabilidade e viver com coragem.
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  Enquanto a maioria das preparações foca em estratégias
+                  superficiais para &ldquo;parecer&rdquo; o candidato ideal, nós
+                  acreditamos que uma candidatura extraordinária não é
+                  construída, ela é a
+                  <strong>
+                    {" "}
+                    expressão autêntica de um ser humano em formação.
+                  </strong>
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  É por isso que nossa metodologia é profundamente humanista e
+                  inspirada nos clássicos. Não começamos pela redação da
+                  <i> essay, </i>
+                  começamos pela formação da pessoa.
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  <strong>
+                    Primeiro, mergulhamos na fundação do pensamento:{" "}
+                  </strong>
+                  através da
+                  <strong> filosofia, lógica e retórica, </strong>
+                  ensinamos seu filho(a) não o que pensar, mas como pensar com
+                  clareza, coerência e honestidade intelectual.
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  <strong>Em seguida, construímos o propósito: </strong>
+                  através da
+                  <strong>
+                    {" "}
+                    autoconhecimento, do estudo da história e de práticas
+                    formativas,{" "}
+                  </strong>
+                  o ajudamos a descobrir sua vocação, seus valores e a história
+                  única que só ele pode contar.
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  Este processo é
+                  <strong> profundamente individualizado, </strong>
+                  respeitando a singularidade, o contexto familiar e o ritmo de
+                  cada jovem.
+                </p>
+                <p className="leading-relaxed  md:text-lg">
+                  O resultado final é uma candidatura que não é um
+                  &ldquo;produto&rdquo; montado para impressionar. É o reflexo
+                  genuíno de um jovem que tem algo de valor a dizer ao mundo e
+                  que está preparado não a penas para ser admitido, mas para ser
+                  uma
+                  <strong> boa influência no tempo em que vive.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Seção 5: Seção "A Jornada 1 em Detalhes" (O Produto Concreto e Imediato) */}
+        <section className="w-full  py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto max-w-5xl px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                Tudo Começa Aqui: Jornada 1 <br /> Fundamentos do Líder Global:
+                Propósito e Estratégia
+              </h2>
+            </div>
+            <div className="grid gap-12 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card className="border-secondary35">
                 <CardHeader>
                   <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                    <Lightbulb className="h-7 w-7 " /> Por que isso importa?
+                    Mês 1: A Bússola Interna - Filosofia e Organização Pessoal
                   </h3>
                 </CardHeader>
                 <CardContent>
-                  <p className="leading-relaxed ">
-                    As notas mostram o que seu filho(a) sabe. Mas não o preparam
-                    para:
-                  </p>
                   <ul className="list-disc space-y-3 pl-6 ">
                     <li>
-                      Navegar conflitos em trabalhos com colegas de culturas
-                      diferentes
+                      <strong>Conteúdo Estratégico: </strong>
+                      Apresentamos a metodologia Van Veen e a estrutura do
+                      sistema de ensino internacional, usando princípios da
+                      filosofia clássica para criar uma base sólida.
                     </li>
                     <li>
-                      Apresentar ideias originais com confiança a bancas
-                      exigentes
+                      <strong>
+                        Soft Skill Desenvolvida: Autoconhecimento e Autogestão.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Através de reflexões guiadas e
+                          ferramentas de organização, o aluno aprende a
+                          gerenciar seu tempo, definir prioridades e entender
+                          seus próprios valores. Esta é a base da
+                          <strong> honestidade intelectual </strong>
+                          que as universidades buscam.
+                        </li>
+                      </ul>
                     </li>
-                    <li>
-                      Escolher o caminho certo, mesmo quando está sozinho a
-                      milhares de quilômetros de casa
-                    </li>
-                    <li>Construir amizades e parcerias duradouras</li>
                   </ul>
-                  <p className="leading-relaxed font-semibold">
-                    As soft skills são a bússola interna que guia seu filho(a)
-                    quando os livros não têm resposta. São a base para uma vida
-                    de propósito e sucesso.
-                  </p>
                 </CardContent>
-                <CardFooter>
-                  <p className="text-accent text-lg leading-relaxed font-bold ">
-                    O sistema educacional prepara para a prova. Nós preparamos
-                    para os testes da vida.
-                  </p>
-                </CardFooter>
+                <CardFooter />
               </Card>
+
               <Card className="border-secondary35">
                 <CardHeader>
                   <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                    <GraduationCap className="size-7 " />{" "}
-                    <span className="w-fit grow-0">
-                      E quanto às provas? Como se preparar?
-                    </span>
+                    Mês 2: A Narrativa Pessoal - Cartas e Propósito de Vida
                   </h3>
                 </CardHeader>
                 <CardContent>
-                  <p className="leading-relaxed ">
-                    O Instituto Van Veen traz o que há de melhor:
-                  </p>
                   <ul className="list-disc space-y-3 pl-6 ">
-                    <li>Disciplinas clássicas (retórica, lógica, gramática)</li>
                     <li>
-                      Preparação para os principais exames internacionais:
-                      TOEFL, IELTS, Duolingo, SAT e ACT
+                      <strong>Conteúdo Estratégico: </strong>
+                      Mergulhamos na arte de construir Cartas de Motivação e
+                      solicitar Cartas de Recomendação que contem uma história
+                      coesa e poderosa.
                     </li>
                     <li>
-                      Suporte para o processo de candidatura: seleção de
-                      universidades, escrita de essays, entrevistas e busca de
-                      bolsas
-                    </li>
-                    <li>
-                      Introdução às universidades internacionais: Ivy League,
-                      Europa, Ásia
-                    </li>
-                    <li>Como funcionam as bolsas de estudo</li>
-                    <li>
-                      Orientações práticas para essays, entrevistas e
-                      application completa
+                      <strong>
+                        Soft Skill Desenvolvida: Criatividade e Storytelling.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Em vez de apenas listar
+                          conquistas, treinamos a<strong> criatividade </strong>
+                          para conectar os pontos da vida do aluno em uma
+                          narrativa de superação e propósito. É aqui que ele
+                          aprende a arte da
+                          <strong> influência social </strong>
+                          através da escrita.
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </CardContent>
+                <CardFooter />
+              </Card>
+
+              <Card className="border-secondary35">
+                <CardHeader>
+                  <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                    Mês 3: A Expressão Autêntica - O Laboratório de Essays
+                  </h3>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc space-y-3 pl-6 ">
+                    <li>
+                      <strong>Conteúdo Estratégico: </strong>
+                      Sessões práticas e intensivas para criar os ensaios
+                      holísticos, a peça mais importante e pessoal da
+                      candidatura.
+                    </li>
+                    <li>
+                      <strong>
+                        Soft Skill Desenvolvida: Inteligência Emocional e
+                        Comunicação Escrita.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Ajudamos o aluno a acessar e
+                          articular suas emoções e experiências de forma
+                          autêntica e vulnerável, demonstrando a
+                          <strong> maturidade e a profundidade </strong>
+                          que os comitês de admissão (Seção: O Ponto de Partida
+                          - Jornada 1) procuram.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter />
+              </Card>
+
+              <Card className="border-secondary35">
+                <CardHeader>
+                  <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                    Mês 4: A Arquitetura do Futuro - College List e Planejamento
+                  </h3>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc space-y-3 pl-6 ">
+                    <li>
+                      <strong>Conteúdo Estratégico: </strong> Construção da
+                      lista de universidades ideal e de um cronograma de ação
+                      detalhado, usando ferramentas de organização e matrizes de
+                      decisão.
+                    </li>
+                    <li>
+                      <strong>
+                        Soft Skill Desenvolvida: Pensamento Crítico e Tomada de
+                        Decisão.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Ensinamos o aluno a
+                          <strong> analisar variáveis </strong>
+                          complexas (cultura da universidade, oportunidades, fit
+                          pessoal) e a usar o
+                          <strong> pensamento crítico </strong>
+                          para tomar decisões estratégicas, em vez de apenas
+                          seguir rankings. É a aplicação prática de
+                          <strong> metodologias ágeis </strong>
+                          na vida pessoal.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter />
+              </Card>
+
+              <Card className="border-secondary35">
+                <CardHeader>
+                  <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                    Mês 5: A Conversa Decisiva - Domínio das Entrevistas
+                  </h3>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc space-y-3 pl-6 ">
+                    <li>
+                      <strong>Conteúdo Estratégico: </strong>
+                      Treinamento teórico e prático para as entrevistas com as
+                      bancas, que são semelhantes a entrevistas de emprego de
+                      alto nível.
+                    </li>
+                    <li>
+                      <strong>
+                        Soft Skill Desenvolvida: Liderança e Comunicação
+                        Interpessoal.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Através de simulações e
+                          role-playing, o aluno pratica como
+                          <strong>
+                            {" "}
+                            comunicar sua visão pessoal com confiança,{" "}
+                          </strong>
+                          demonstrar
+                          <strong> liderança </strong>
+                          em suas respostas e alinhar sua motivação com o
+                          propósito de vida, mesmo (Seção: O Ponto de Partida -
+                          Jornada 1) sob pressão.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter />
+              </Card>
+
+              <Card className="border-secondary35">
+                <CardHeader>
+                  <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
+                    Mês 6: O Impacto Real - Projetos e Portfólio
+                  </h3>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc space-y-3 pl-6 ">
+                    <li>
+                      <strong>Conteúdo Estratégico: </strong>
+                      Orientação para criar e executar trabalhos voluntários e
+                      atividades extracurriculares que gerem impacto real e
+                      construam um currículo robusto.
+                    </li>
+                    <li>
+                      <strong>
+                        Soft Skill Desenvolvida: Resiliência e Consciência
+                        Social.
+                      </strong>
+                      <ul className="list-disc space-y-2 pl-6 ">
+                        <li>
+                          <strong>Como? </strong> Incentivamos o aluno a sair da
+                          zona de conforto,
+                          <strong> empreender com um projeto próprio, </strong>
+                          lidar com os desafios do mundo real
+                          <strong> (resiliência) </strong>e demonstrar uma
+                          <strong> consciência cívica e ecológica, </strong>
+                          mostrando sua capacidade de contribuir para uma
+                          comunidade.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter />
               </Card>
             </div>
           </div>
         </section>
 
-        {/* A Solução – 12 Seminários Intensivos em 4 Horas */}
+        {/* Seção 6: Os Planos de Investimentos */}
         <section className="w-full  py-16 md:py-28 lg:py-36">
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
-                A Solução <br /> 12 Seminários Intensivos em 4 Horas:{" "}
-                <br className="hidden md:inline" />
-                Preparação Completa para o Sucesso Global
+                Planos de Investimento
               </h2>
-              <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                Este seminário único associa o que há de melhor em preparação
-                técnica para admissões internacionais e o desenvolvimento
-                essencial das soft skills, preparando seu filho(a) para vencer
-                tanto os processos seletivos mais competitivos quanto os
-                desafios reais do ambiente acadêmico e profissional global.
-              </p>
             </div>
             <div className="grid gap-10 md:grid-cols-2">
               <Card className="border-primary35 bg-primary20">
                 <CardHeader>
                   <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                    <Users className="h-7 w-7 " /> Parte 1 – 2 horas com Nicolas
-                    Van Veen
+                    PASSAPORTE DA JORNADA
                   </h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-4">
                   <p className="leading-relaxed ">
-                    Especialista em ensino superior internacional, Nicolas Van
-                    Veen conduzirá uma imersão prática para preparar o estudante
-                    para conquistar seu lugar nas melhores universidades do
-                    mundo, incluindo:
+                    O programa fundamental para o desenvolvimento completo em
+                    grupo, com o diagnóstico inicial para guiar o aprendizado.
                   </p>
-                  <ul className="list-disc space-y-3 pl-6 ">
-                    <li>
-                      Compreensão detalhada do processo de admissão e seleção
-                      nas universidades de excelência
-                    </li>
-                    <li>
-                      Estratégias para conquistar bolsas de estudo
-                      internacionais
-                    </li>
-                    <li>
-                      Preparação para exames essenciais como TOEFL, IELTS,
-                      Duolingo, SAT e ACT
-                    </li>
-                    <li>
-                      Suporte ao desenvolvimento do application completo:
-                      essays, entrevistas e cartas de recomendação
-                    </li>
-                    <li>
-                      Mentoria ao vivo com espaço para dúvidas, garantindo que o
-                      aluno compreenda cada etapa do processo
-                    </li>
-                  </ul>
+                  <div>
+                    <p className="leading-relaxed font-bold">
+                      O que está incluído:
+                    </p>
+                    <ul className="list-disc space-y-3 pl-6 ">
+                      <li>
+                        <strong>6 Seminários Presenciais </strong>
+                        (24h de imersão)
+                      </li>
+                      <li>
+                        <strong>12 Preceptorias Online em Grupo </strong>
+                        (18h de aprofundamento)
+                      </li>
+                      <li>
+                        <strong>6 Sessões de Feedback para os Pais </strong>
+                        (6h de alinhamento)
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="text-accent text-lg">
+                    <p className="leading-relaxed font-bold">
+                      Opções de Investimento:{" "}
+                    </p>
+                    <ul className="list-disc space-y-3 pl-6 ">
+                      <li>
+                        <strong>Assinatura mensal de R$ 1.500,00. </strong>
+                      </li>
+                      <li>
+                        <strong>Parcelado: </strong> em 12x de R$ 870,00 no
+                        cartão. (Total a prazo: R$ 10.440,00)
+                      </li>
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
+
               <Card className="border-primary35 bg-primary20">
                 <CardHeader>
                   <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                    <Handshake className="h-7 w-7 " /> Parte 2 – 2 horas com Be
-                    Kind
+                    IMERSÃO DO LÍDER GLOBAL
                   </h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-4">
                   <p className="leading-relaxed ">
-                    A Be Kind oferece uma experiência dinâmica e prática para
-                    desenvolver as competências comportamentais fundamentais
-                    para o sucesso fora da sala de aula:
+                    A experiência de elite, que une a força do grupo com a
+                    precisão da mentoria individual para uma transformação
+                    acelerada e profunda.
                   </p>
-                  <ul className="list-disc space-y-3 pl-6 ">
-                    <li>
-                      Dinâmicas e role-playing focados em comunicação
-                      intercultural, liderança e resiliência
-                    </li>
-                    <li>
-                      Simulações reais de entrevistas, debates e situações
-                      multiculturais para fortalecer a confiança e
-                      adaptabilidade
-                    </li>
-                    <li>
-                      Feedback individualizado para identificar pontos fortes e
-                      oportunidades de crescimento
-                    </li>
-                    <li>
-                      Plano de ação personalizado para que o estudante continue
-                      se desenvolvendo mesmo após o seminário
-                    </li>
-                    <li>
-                      Exercícios de autoconhecimento que ajudam o jovem a
-                      construir seu projeto de vida internacional com propósito
-                    </li>
-                  </ul>
+                  <div>
+                    <p className="leading-relaxed font-bold">
+                      O que está incluído:
+                    </p>
+                    <ul className="list-disc space-y-3 pl-6 ">
+                      <li>
+                        <strong>Tudo do plano “Passaporte da Jornada”</strong>
+                      </li>
+                      <li>
+                        <strong>Análise de Perfil Comportamental </strong>+
+                        Relatório Personalizado
+                      </li>
+                      <li>
+                        <strong>Devolutiva Individual do Relatório </strong>com
+                        especialista
+                      </li>
+                      <li>
+                        Elaboração do{" "}
+                        <strong>
+                          Plano de Desenvolvimento Individual (PDI)
+                        </strong>
+                      </li>
+                      <li>
+                        <strong>
+                          2 Sessões de Mentoria Individual (1h cada)
+                        </strong>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="text-accent text-lg">
+                    <p className="leading-relaxed font-bold">
+                      Opções de Investimento:{" "}
+                    </p>
+                    <ul className="list-disc space-y-3 pl-6 ">
+                      <li>
+                        <strong>Assinatura mensal de R$ 1.850,00. </strong>
+                        (O mais alto nível de preparação com acompanhamento
+                        premium)
+                      </li>
+                      <li>
+                        <strong>Parcelado: </strong>
+                        em 12x de R$ 1.150,00 no cartão. (Total a prazo: R$
+                        13.800,00)
+                      </li>
+                      <li>
+                        <strong>
+                          🔥 OFERTA ESPECIAL PARA PAGAMENTO À VISTA 🔥 <br /> R$
+                          9.990,00
+                        </strong>
+                      </li>
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -299,97 +1042,271 @@ export default function Component() {
           </div>
         </section>
 
-        {/* Para Quem é Este Seminário? */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
-          <div className="container mx-auto max-w-5xl px-4 text-center md:px-6">
-            <h2 className="font-dm-sans mb-12 text-3xl font-bold tracking-tight  sm:text-4xl md:text-5xl">
-              Para Quem é Este Seminário?
-            </h2>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              <Card className="border-primary35 bg-primary5 aspect-square md:aspect-auto lg:aspect-square">
-                <CardContent className="my-auto flex h-full flex-col items-center justify-center space-y-4">
-                  <Users className="h-12 w-12 " />
-                  <h3 className="font-dm-sans font-semibold lg:text-3xl ">
-                    Estudantes
-                  </h3>
-                  <p className="leading-relaxed ">
-                    Entre 13 e 17 anos que sonham em estudar no exterior.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-primary35 bg-primary5 aspect-square md:aspect-auto lg:aspect-square">
-                <CardContent className="my-auto flex h-full flex-col items-center justify-center space-y-4">
-                  <CheckCircle2 className="h-12 w-12 " />
-                  <h3 className="font-dm-sans font-semibold lg:text-3xl ">
-                    Pais
-                  </h3>
-                  <p className="leading-relaxed ">
-                    Que buscam o melhor retorno sobre o investimento na educação
-                    do filho(a).
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-primary35 bg-primary5 aspect-square md:aspect-auto lg:aspect-square">
-                <CardContent className="my-auto flex h-full flex-col items-center justify-center space-y-4">
-                  <Award className="h-12 w-12 " />
-                  <h3 className="font-dm-sans font-semibold lg:text-3xl ">
-                    Jovens
-                  </h3>
-                  <p className="leading-relaxed ">
-                    Que querem ser líderes e protagonistas de suas histórias.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Parceria Be Kind & Instituto Van Veen */}
+        {/* Seção 7: Oportunidade única - Tornar-se um Pioneiro */}
         <section className="w-full  py-16 md:py-28 lg:py-36">
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-8 text-center">
-              <h2 className="font-dm-sans text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                Parceria Be Kind & Instituto Van Veen
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                🔥Oportunidade Única: Seja um Pioneiro!🔥
               </h2>
               <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                O Instituto Van Veen, fundado em 2010 por Nicolas Van Veen, é
-                referência nacional na democratização do acesso ao ensino
-                superior internacional, com uma abordagem humanizada, inclusiva
-                e sustentável.
+                Para celebrar a nossa turma inaugural, criamos o
+                <strong> Acesso Pioneiro, </strong>
+                disponível apenas para as
+                <strong> 10 primeiras matrículas.</strong>
               </p>
               <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                A excelência do Instituto Van Veen é reforçada por sua banca
-                acadêmica de renome, formada por pesquisadores e professores
-                doutores com ampla experiência internacional. Essa equipe
-                contribui regularmente com artigos, dissertações e teses,
-                ampliando a relevância do instituto no debate global sobre
-                educação.
+                Garanta a experiência
+                <strong> “Imersão do Líder Global”, </strong>
+                nosso programa mais completo, pelo valor especial de fundação. É
+                a nossa forma de agradecer por acreditar e embarcar nesta
+                jornada conosco desde o início.
               </p>
               <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                Outro marco significativo é o reconhecimento internacional do
-                Instituto Van Veen como Membro da Sociedade Real de História,
-                com sede em Londres. Essa afiliação sublinha a profundidade da
-                sua atuação acadêmica e a conexão direta com a comunidade global
-                de estudos históricos e culturais.
+                É o nosso melhor produto, com o nosso maior desconto.
               </p>
-              <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                O Instituto Van Veen atua como uma ponte não apenas para o
-                ensino superior internacional, mas também para o desenvolvimento
-                de uma visão ampla e transformadora sobre o papel da educação na
-                construção de um futuro mais equitativo, conectado e
-                sustentável.
-              </p>
-              <p className="text-accent mx-auto max-w-[800px] leading-relaxed font-bold md:text-xl">
-                Com essa parceria, Be Kind e Instituto Van Veen oferecem uma
-                formação única, que alia preparo técnico, soft skills e visão
-                global para preparar seu filho(a) para os desafios e
-                oportunidades do século XXI.
+
+              <p className="text-accent max-w-[800px]  text-3xl leading-relaxed">
+                <strong>
+                  Investimento Especial: <br /> Pagamento único de R$ 8.800,00.
+                </strong>
+                <br />
+                <small className="text-base">
+                  (Pode ser parcelado em 6x R$ 1.580,00 no cartão)
+                </small>
               </p>
             </div>
           </div>
         </section>
 
-        {/* Última Chamada para Inscrição */}
+        {/* Seção 8: Tabela com o comparativo dos Planos */}
+        <section className="w-full  py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto max-w-5xl px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                Ainda em dúvida? Veja um resumo comparativo:
+              </h2>
+
+              <div>
+                <div className="bg-[#f6f6f6] py-16 lg:py-24">
+                  <div className="container mx-auto px-4">
+                    <div className="mx-auto max-w-6xl">
+                      <div className="mb-12 text-center">
+                        <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">
+                          Escolha Seu{" "}
+                          <span className="text-[#7f2ba6]">
+                            Plano de Formação
+                          </span>
+                        </h2>
+                        <p className="text-foreground/70 mx-auto max-w-2xl text-lg">
+                          Compare os benefícios de cada modalidade e encontre a
+                          opção ideal para sua jornada de desenvolvimento.
+                        </p>
+                      </div>
+
+                      {/* Plans Table */}
+                      <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
+                        {/* Table Header */}
+                        <div className="grid grid-cols-4 bg-[#7f2ba6] text-white">
+                          <div className="p-6 text-lg font-semibold">
+                            Benefícios
+                          </div>
+                          {plansData.map((plan) => (
+                            <div
+                              key={plan.name}
+                              className={`p-6 text-center text-lg font-semibold ${
+                                plan.highlight
+                                  ? "text-foreground bg-primary"
+                                  : ""
+                              }`}
+                            >
+                              {plan.name}
+                              {plan.highlight && (
+                                <div className="mt-1 text-xs font-normal text-red-500">
+                                  {plan.limitedSpots}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Table Body */}
+                        <div className="divide-y divide-gray-200">
+                          {/* 6 Seminários Presenciais */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-50">
+                            <div className="text-foreground p-6 font-medium">
+                              6 Seminários Presenciais
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-seminarios`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.seminarios ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* 12 Preceptorias em Grupo Online */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-50">
+                            <div className="text-foreground p-6 font-medium">
+                              12 Preceptorias em Grupo Online
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-preceptorias`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.preceptorias ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* 6 Feedbacks para os Pais */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-100">
+                            <div className="text-foreground p-6 font-medium">
+                              6 Feedbacks para os Pais
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-feedbacks`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.feedbacks ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Análise de Perfil Comportamental */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-50">
+                            <div className="text-foreground p-6 font-medium">
+                              Análise de Perfil Comportamental
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-analise`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.analise ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Devolutiva Individual + PDI */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-50">
+                            <div className="text-foreground p-6 font-medium">
+                              Devolutiva Individual + PDI
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-devolutiva`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.devolutiva ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* 2 Mentorias Individuais */}
+                          <div className="grid grid-cols-4 transition-colors hover:bg-gray-50">
+                            <div className="text-foreground p-6 font-medium">
+                              2 Mentorias Individuais
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-mentorias`}
+                                className="p-6 text-center"
+                              >
+                                {plan.benefits.mentorias ? (
+                                  <Check className="mx-auto h-6 w-6 text-green-600" />
+                                ) : (
+                                  <X className="mx-auto h-6 w-6 text-red-500" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Investment Row */}
+                          <div className="grid grid-cols-4 bg-gray-50">
+                            <div className="text-foreground p-6 text-lg font-bold">
+                              Investimento
+                            </div>
+                            {plansData.map((plan) => (
+                              <div
+                                key={`${plan.name}-price`}
+                                className={`p-6 text-center ${plan.highlight ? "bg-primary/20" : ""}`}
+                              >
+                                <div className="text-foreground text-lg font-bold">
+                                  {plan.price}
+                                </div>
+                                <div className="text-foreground/70 mt-1 text-sm">
+                                  {plan.altPrice}
+                                </div>
+                                {plan.limitedSpots && (
+                                  <div className="mt-2 text-xs font-bold text-red-500 uppercase">
+                                    {plan.limitedSpots}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Seção 9: "Última Chamada para a Ação" (A conversão Final) */}
+        <section className="w-full  py-16 md:py-28 lg:py-36">
+          <div className="container mx-auto max-w-5xl px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                Prepare-o Não Apenas Para Entrar. Prepare-o Para Liderar.
+              </h2>
+              <p className="max-w-[800px] leading-relaxed  md:text-lg">
+                A admissão em uma universidade de elite é apenas o primeiro
+                passo. A verdadeira medida do sucesso é o impacto que seu
+                filho(a) terá no mundo. Dê a ele(a) as ferramentas para
+                construir uma vida de relevância, propósito e liderança.
+                Entendemos que esta é uma decisão importante. Estamos aqui para
+                responder a todas as suas perguntas e mostrar, em detalhes, como
+                nossa jornada pode ser o diferencial para o futuro da sua
+                família.
+              </p>
+              <h3 className="text-accent text-center text-3xl font-bold uppercase">
+                A jornada começa hoje.
+              </h3>
+              <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
+                AGENDAR UMA CONVERSA E INICIAR A JORNADA
+              </Button>
+            </div>
+          </div>
+        </section>
+
         <section
           id="inscricao"
           className="flex w-full items-center justify-center  py-16 text-center  md:py-28 lg:py-36"
@@ -405,7 +1322,7 @@ export default function Component() {
                   <span className="font-dm-sans text-xl font-semibold">
                     Data:
                   </span>
-                  <span className="">[Inserir data]</span>
+                  <span className="">20/09/2025</span>
                 </CardContent>
               </Card>
               <Card className="border-secondary35 bg-secondary5 aspect-square">
@@ -414,7 +1331,10 @@ export default function Component() {
                   <span className="font-dm-sans text-xl font-semibold">
                     Local:
                   </span>
-                  <span className="">[Inserir local]</span>
+                  <span className="">Hotel Ibis Styles Taubaté</span>
+                  <small>
+                    <i>a confirmar</i>
+                  </small>
                 </CardContent>
               </Card>
               <Card className="border-accent35 bg-accent5 aspect-square">
@@ -432,7 +1352,7 @@ export default function Component() {
                   <span className="font-dm-sans text-xl font-semibold">
                     Público:
                   </span>
-                  <span className="">Jovens entre 13 e 17 anos</span>
+                  <span className="">Jovens entre 14 e 17 anos</span>
                 </CardContent>
               </Card>
             </div>
@@ -444,32 +1364,16 @@ export default function Component() {
                   do Instituto Van Veen
                 </span>
               </div>
-              {process.env.NEXT_PUBLIC_TICKETS_ENABLED === "1" ? (
-                <NewTicketModal>
-                  <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
-                    INSCREVA-SE AGORA
-                  </Button>
-                </NewTicketModal>
-              ) : (
-                <NewLeadModal>
-                  <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
-                    GARANTA A VAGA AGORA
-                  </Button>
-                </NewLeadModal>
-              )}
-              <p className="text-accent text-xl font-bold drop-shadow-md">
-                Restam apenas algumas vagas!
-              </p>
             </div>
           </div>
         </section>
       </main>
 
       <footer className="bg-background font-dm-sans relative flex w-full shrink-0 flex-col items-center gap-4 px-4 py-8 sm:flex-row md:px-6">
-        <p className="text-center text-sm md:text-left">
+        <small className="text-center text-sm md:text-left">
           &copy; {new Date().getFullYear()} Instituto Van Veen & Be Kind. Todos
           os direitos reservados.
-        </p>
+        </small>
         <nav className="flex gap-6 sm:ml-auto sm:gap-8">
           <Link
             href="#"

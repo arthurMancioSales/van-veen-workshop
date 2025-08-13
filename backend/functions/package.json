@@ -16,6 +16,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@firebase/firestore": "^4.9.0",
+    "@sendgrid/mail": "^8.1.5",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
     "axios": "^1.10.0",
