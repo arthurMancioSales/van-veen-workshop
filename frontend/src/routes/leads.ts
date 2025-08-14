@@ -8,7 +8,7 @@ export const leadsRoutes = {
   ),
   getLeads: routeBuilder(
     ["GET"],
-    // () => `https://getleads-566pzglqfa-uc.a.run.app`,
-    () => `http://127.0.0.1:5001/van-veen-workshop/us-central1/getLeads`,
+    () => `https://getleads-566pzglqfa-uc.a.run.app`,
+    // () => `http://127.0.0.1:5001/van-veen-workshop/us-central1/getLeads`,
   ),
 };

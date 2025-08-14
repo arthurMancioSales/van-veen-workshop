@@ -60,6 +60,13 @@ export default function NewLeadForm({
           description: "Formulário enviado com sucesso",
         });
         setOpen(false);
+        setTimeout(() => {
+          window.open(
+            "https://wa.me//5512997151011?text=Ol%C3%A1%21+Gostaria+de+saber+mais+sobre+a+Forma%C3%A7%C3%A3o+de+L%C3%ADderes+Globais",
+            "_blank",
+          );
+        }, 1000);
+
         return;
       }}
     >

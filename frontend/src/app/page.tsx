@@ -34,6 +34,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { NewLeadModal } from "@/features/leads/components/newLeadModal";
 
 export default function Component() {
   const plansData = [
@@ -297,8 +298,9 @@ export default function Component() {
               <div className="flex flex-col items-center">
                 <Avatar className="mb-4 h-24 w-24">
                   <AvatarImage
-                    src="/lilian-monaco.png"
+                    src="/images/lilian-monaco.jpeg"
                     alt="Lilian Paula Mônaco"
+                    className="object-cover"
                   />
                   <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
                     LP
@@ -309,6 +311,7 @@ export default function Component() {
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button
+                      disabled
                       variant="outline"
                       size="sm"
                       className="border-secondary/60 hover:bg-secondary/10 hover:text-secondary text-foreground"
@@ -321,7 +324,7 @@ export default function Component() {
                       <div className="flex items-center gap-4">
                         <Avatar className="h-16 w-16">
                           <AvatarImage
-                            src="/lilian-monaco.png"
+                            src="/images/lilian-monaco.jpeg"
                             alt="Lilian Paula Mônaco"
                           />
                           <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
@@ -342,32 +345,7 @@ export default function Component() {
                     <div className="space-y-6 p-4 pt-0">
                       <h4 className="mb-2 font-semibold">Sobre</h4>
                       <div className="max-h-[75vh] overflow-y-scroll">
-                        <small className="text-muted-foreground text-base leading-relaxed">
-                          Nicolas Van Veen tem uma formação multifacetada.
-                          Membro da Sociedade Real de História, da Biblical
-                          Archeology Society (EUA) e da Sociedade Brasileira de
-                          Teoria da História e Historiografia, com sede em Ouro
-                          Preto, Minas Gerais. Com formação em história, com
-                          ênfase em história antiga e medieval, possui cursos em
-                          Metodologia da Pesquisa Científica pelo Instituto
-                          Federal de Minas Gerais, Metodologia Científica pelo
-                          Instituto Federal do Rio Grande do Sul e Filosofia da
-                          Ciência e Teoria do Conhecimento pela Universidade
-                          Santo Amaro. Nicolas, no entanto, gosta de salientar
-                          que sua formação mais importante está em ser o segundo
-                          discípulo do Mestre Lee Won Wah, formado pelo
-                          Instituto Yau Man de Wu Shu de Artes Marciais e
-                          Cultura Chinesa em 1992, com sede em São José dos
-                          Campos, São Paulo. Nicolas Van Veen trabalhou como
-                          colaborador no British Council e na Macmillan do
-                          Brasil e também colaborou com a NUFFIC NESO Brazil
-                          (órgão do governo holandês para o ensino superior).
-                          Ministrou palestras sobre educação internacional em
-                          universidades como UEPB, UNICAMP e UNESP. É fundador
-                          do Instituto Van Veen em 2012 e já ajudou mais de 250
-                          alunos em aprovações com bolsas de estudos em
-                          universidades internacionais.
-                        </small>
+                        <small className="text-muted-foreground text-base leading-relaxed" />
                       </div>
                     </div>
                   </SheetContent>
@@ -1300,9 +1278,11 @@ export default function Component() {
               <h3 className="text-accent text-center text-3xl font-bold uppercase">
                 A jornada começa hoje.
               </h3>
-              <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
-                AGENDAR UMA CONVERSA E INICIAR A JORNADA
-              </Button>
+              <NewLeadModal>
+                <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
+                  AGENDAR UMA CONVERSA E INICIAR A JORNADA
+                </Button>
+              </NewLeadModal>
             </div>
           </div>
         </section>
@@ -1313,7 +1293,7 @@ export default function Component() {
         >
           <div className="container mx-auto max-w-5xl space-y-10 px-4 md:px-6">
             <h2 className="font-dm-sans text-4xl leading-tight font-extrabold tracking-tight drop-shadow-lg sm:text-5xl md:text-6xl">
-              Última Chamada para Inscrição
+              Atente-se Aos Detalhes
             </h2>
             <div className="grid grid-cols-1 gap-8 text-lg sm:grid-cols-2 lg:grid-cols-4">
               <Card className="border-primary35 bg-primary5 aspect-square">
@@ -1374,7 +1354,7 @@ export default function Component() {
           &copy; {new Date().getFullYear()} Instituto Van Veen & Be Kind. Todos
           os direitos reservados.
         </small>
-        <nav className="flex gap-6 sm:ml-auto sm:gap-8">
+        {/* <nav className="flex gap-6 sm:ml-auto sm:gap-8">
           <Link
             href="#"
             className="hover: text-sm underline-offset-4 transition-colors hover:underline"
@@ -1387,7 +1367,7 @@ export default function Component() {
           >
             Política de Privacidade
           </Link>
-        </nav>
+        </nav> */}
         <span className="absolute right-0 bottom-0 h-2 w-full bg-[repeating-linear-gradient(90deg,_#fad262_0,_#fad262_180px,_#ff791c_180px,_#ff791c_360px,_#fe5f48_360px,_#fe5f48_540px,_#7f2ba6_540px,_#7f2ba6_720px,_#4b67fe_720px,_#4b67fe_800px)]" />
       </footer>
     </div>
