@@ -232,7 +232,7 @@ export default function Component() {
               />
             </div> */}
             <div className="flex flex-col justify-center gap-2 md:w-4/5 ">
-              <Link href="#inscricao">
+              <Link href="#subscribe">
                 <Button
                   variant="default"
                   className="font-dm-sans inline-flex h-14 w-full transform items-center justify-center rounded-full px-10 text-lg font-bold opacity-100 shadow-lg transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
