@@ -139,18 +139,18 @@ export default function Component() {
               Criado e Guiado Pessoalmente Por:
             </h2>
             <div className="mx-auto grid max-w-3xl gap-8 md:grid-cols-3">
-              {/* Nicola Van Veen */}
+              {/* Nicolas Van Veen */}
               <div className="flex flex-col items-center">
                 <Avatar className="mb-4 h-24 w-24">
                   <AvatarImage
                     src="/images/nicolas.jpeg"
-                    alt="Nicola Van Veen"
+                    alt="Nicolas Van Veen"
                   />
                   <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
                     NV
                   </AvatarFallback>
                 </Avatar>
-                <h4 className="text-lg font-semibold">Nicola Van Veen</h4>
+                <h4 className="text-lg font-semibold">Nicolas Van Veen</h4>
                 <h5 className="text-sm opacity-75">
                   Fundador, Instituto Van Veen
                 </h5>
@@ -170,7 +170,7 @@ export default function Component() {
                         <Avatar className="h-16 w-16">
                           <AvatarImage
                             src="/images/nicolas.jpeg"
-                            alt="Nicola Van Veen"
+                            alt="Nicolas Van Veen"
                           />
                           <AvatarFallback className="bg-primary/60 text-xl font-semibold ">
                             NV
