@@ -7,6 +7,10 @@ html {
     font-size: 100%;
 }
 
+body * {
+  scroll-margin-top: 72px;
+}
+
 p {
   font-size: 1.3rem;
 }

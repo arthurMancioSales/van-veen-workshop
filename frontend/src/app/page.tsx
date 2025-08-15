@@ -6,10 +6,12 @@ import {
   CheckCircle2,
   Clock,
   MapPin,
+  Menu,
   Users,
   X,
 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -20,13 +22,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -34,6 +29,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import EducationFailsCarousel from "@/features/landing/components/educationFailsCarousel";
+import JourneyCarousel from "@/features/landing/components/journeyCarousel";
 import { NewLeadModal } from "@/features/leads/components/newLeadModal";
 
 export default function Component() {
@@ -82,12 +79,127 @@ export default function Component() {
       limitedSpots: "APENAS 10 VAGAS",
     },
   ];
-
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <div className="flex min-h-dvh flex-col font-sans ">
-      <main className="bg-background relative ml-2 flex-1 overflow-clip px-4 md:ml-8 md:px-14 lg:ml-12">
+      <header className="bg-background fixed top-0 right-0 left-0 z-50 ml-2 p-4 md:ml-8 lg:ml-12">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="text-foreground text-lg font-bold md:text-xl">
+            Formação de Líderes Globais
+          </div>
+
+          <Sheet open={isNavOpen} onOpenChange={setIsNavOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground hover:bg-white/10"
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Abrir menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[250px] p-2 md:w-[300px]">
+              <SheetHeader>
+                <SheetTitle className="font-dm-sans">
+                  Menu de Navegação
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="md:max-h-auto max-h-[90vh] space-y-1 overflow-y-scroll md:overflow-auto">
+                <a
+                  href="#hero"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Início
+                </a>
+                <Link
+                  href="#founders"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => {
+                    setIsNavOpen(false);
+                  }}
+                >
+                  Fundadores
+                </Link>
+                <a
+                  href="#blind-spot"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Ponto Cego
+                </a>
+                <a
+                  href="#global-leaders"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Formação de Líderes Globais
+                </a>
+                <a
+                  href="#philosophy"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Nossa Filosofia
+                </a>
+                <a
+                  href="#journey-1"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Jornada 1: Fundamentos do Líder Global
+                </a>
+                <a
+                  href="#investment-plans"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Planos de Investimento
+                </a>
+                <a
+                  href="#pioneering-opportunity"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Torne-se um Pioneiro
+                </a>
+                <a
+                  href="#plans-comparison"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Comparação de Planos
+                </a>
+                <a
+                  href="#event-details"
+                  className="block rounded-lg px-4 py-2 text-lg font-medium text-[#1b0404] transition-colors hover:bg-[#7f2ba6]/10"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Detalhes do Evento
+                </a>
+              </nav>
+              <div className="border-t p-4">
+                <a href="#subscribe" onClick={() => setIsNavOpen(false)}>
+                  <Button
+                    className="w-full bg-[#fad262] font-semibold text-[#1b0404] hover:bg-[#fad262]/90"
+                    onClick={() => setIsNavOpen(false)}
+                  >
+                    Inscreva-se Agora
+                  </Button>
+                </a>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </header>
+
+      <main className="bg-background relative mt-[72px] ml-2 flex-1 overflow-clip md:mt-0  md:ml-8 lg:ml-12">
         {/* Seção Herói */}
-        <section className="flex w-full items-center justify-start overflow-y-visible pt-8 pb-36 text-center md:w-4/5 md:pt-10 lg:pt-18">
+        <section
+          id="hero"
+          className="flex w-full items-center justify-start overflow-y-visible px-4 pt-8 pb-36 text-center md:w-4/5 md:px-14 md:pt-10 lg:pt-18"
+        >
           <div className="pointer-events-none absolute inset-0 top-0 z-0 max-h-screen bg-[url('/images/be-kind-logo.svg')] bg-contain bg-no-repeat opacity-10 md:translate-x-1/2 md:opacity-40 lg:translate-x-2/3 lg:translate-y-1/12" />
           <div className="z-10 max-w-5xl space-y-8">
             <div className="flex flex-col items-center md:items-start">
@@ -120,12 +232,14 @@ export default function Component() {
               />
             </div> */}
             <div className="flex flex-col justify-center gap-2 md:w-4/5 ">
-              <Button
-                variant="default"
-                className="font-dm-sans inline-flex h-14 w-full transform items-center justify-center rounded-full px-10 text-lg font-bold opacity-100 shadow-lg transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-              >
-                <Link href="#inscricao">GARANTA A VAGA AGORA</Link>
-              </Button>
+              <Link href="#inscricao">
+                <Button
+                  variant="default"
+                  className="font-dm-sans inline-flex h-14 w-full transform items-center justify-center rounded-full px-10 text-lg font-bold opacity-100 shadow-lg transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                >
+                  GARANTA A VAGA AGORA
+                </Button>
+              </Link>
               <p className="font-dm-sans text-accent mt-2 text-sm font-medium uppercase">
                 Vagas limitadas para turmas fechadas. Inscrições abertas.
               </p>
@@ -133,7 +247,10 @@ export default function Component() {
           </div>
         </section>
 
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="founders"
+          className="bg-secondary10 w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl space-y-8 px-4 md:px-6">
             <h2 className="font-dm-sans text-center text-3xl leading-tight font-bold tracking-tight sm:text-4xl md:text-5xl">
               Criado e Guiado Pessoalmente Por:
@@ -356,7 +473,10 @@ export default function Component() {
         </section>
 
         {/* Seção 2: O Ponto Cego da Educação de Elite */}
-        <section className=" w-full py-16 md:py-28 lg:py-36">
+        <section
+          id="blind-spot"
+          className="w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto flex max-w-5xl flex-col items-center px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -365,194 +485,17 @@ export default function Component() {
               </h2>
             </div>
 
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                <CarouselItem className="lg:basis-1/3">
-                  <Card className="border-secondary35 h-full">
-                    <CardHeader>
-                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                        Seu filho(a) estuda nas melhores escolas. Isso é o
-                        suficiente?
-                      </h3>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="indent-4 leading-relaxed">
-                        Você investe em uma educação de ponta, garantindo um
-                        futuro brilhante. Mas o mundo mudou, e as regras para o
-                        sucesso também.
-                      </p>
-                    </CardContent>
-                    <CardFooter />
-                  </Card>
-                </CarouselItem>
-                <CarouselItem className="lg:basis-1/3">
-                  <Card className="border-secondary35 h-full">
-                    <CardHeader>
-                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                        O que Harvard, Google e os Comitês de Admissão procuram?
-                      </h3>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <p className="indent-4 leading-relaxed">
-                        Ao estudar seus melhores líderes, o Google descobriu que
-                        as 7 qualidades mais importantes eram{" "}
-                        <strong>habilidades humanas,</strong> competência
-                        técnica ficou em último
-                      </p>
-                      <p className="indent-4 leading-relaxed">
-                        Pesquisadores afirmam que a{" "}
-                        <strong>Inteligência Emocional,</strong> que engloba{" "}
-                        <strong>resiliência e autoconhecimento, </strong> é um
-                        preditor de sucesso mais forte que o QI e expertise
-                        técnica em cargos de liderança.
-                      </p>
-                      <p className="indent-4 leading-relaxed">
-                        Afirmam consistentemente que, entre candidatos com notas
-                        perfeitas, o principal diferenciador são as{" "}
-                        <strong>qualidades pessoais: </strong>
-                        caráter, propósito e a capacidade de contribuir com a
-                        comunidade.
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
-                        Eles não buscam apenas os mais inteligentes. Buscam os
-                        mais adaptáveis, colaborativos e resilientes.
-                      </p>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-                <CarouselItem className="lg:basis-1/3">
-                  <Card className="border-secondary35 h-full">
-                    <CardHeader>
-                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                        O Mercado de Trabalho já vive uma crise de habilidades.
-                      </h3>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <p className="indent-4 leading-relaxed">
-                        <strong>6 em cada 10 empresas</strong> já lutam para
-                        encontrar talentos com habilidades (soft skills)
-                        necessárias.
-                      </p>
-                      <p className="indent-4 leading-relaxed">
-                        O treinamento em
-                        <strong> liderança e influência social </strong>é a
-                        <strong> 3ª maior prioridade de investimento </strong>
-                        das empresas para seus funcionários atuais. Elas estão
-                        pagando para ensinar o que as escolas não ensinaram.
-                      </p>
-                      <p className="indent-4 leading-relaxed">
-                        A confiança de que os jovens sairão preparados das
-                        escolas está em
-                        <strong> queda livre. </strong>O Fórum Econômico Mundial
-                        projeta que o gap só
-                        <strong> irá piorar nos próximos 5 anos.</strong>
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
-                        Fonte: Relatório &quot;Future of Jobs&quot;, Fórum
-                        Econômico Mundial.
-                      </p>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-                <CarouselItem className="lg:basis-1/3">
-                  <Card className="border-secondary35 h-full">
-                    <CardHeader>
-                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                        Por que as escolas, mesmo as de elite, não conseguem
-                        acompanhar?
-                      </h3>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <ul className="list-disc space-y-3 pl-6 ">
-                        <li>
-                          <strong>Currículo Rígido: </strong> O foco absoluto em
-                          vestibulares e exames padronizados consome todo o
-                          tempo e energia, deixando pouco espaço para o
-                          desenvolvimento humano.
-                        </li>
-                        <li>
-                          <strong>Mudança Lenta: </strong> O mercado evolui em
-                          meses; as escolas, em décadas. A mudança é burocrática
-                          e demorada.
-                        </li>
-                        <li>
-                          <strong>Foco na Teoria: </strong> Ensinam &quot;o que
-                          é&quot; pensamento crítico, mas não criam ambientes
-                          para &quot;praticar&quot; a liderança e a resiliência
-                          sob pressão.
-                        </li>
-                      </ul>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-accent indent-4 text-lg leading-relaxed font-bold">
-                        Esperar pela mudança do sistema educacional não é uma
-                        opção para quem quer liderar o futuro.
-                      </p>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-                <CarouselItem className="lg:basis-1/3">
-                  <Card className="border-secondary35 h-full">
-                    <CardHeader>
-                      <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
-                        A Preparação que Começa na Adolescência.
-                      </h3>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="indent-4 leading-relaxed">
-                        Enquanto o sistema se adapta, nós agimos. Nossa
-                        <strong> Formação de Líderes Globais </strong>é o
-                        laboratório prático projetado para
-                        <strong> jovens de 14 a 17 anos, </strong>
-                        preenchendo essa lacuna de forma imediata e
-                        personalizada.
-                        <strong> Benefícios:</strong>
-                      </p>
-                      <ul className="list-disc space-y-3 pl-6 ">
-                        <li>
-                          <strong>Metodologia Aplicada: </strong>
-                          Dinâmicas e projetos que simulam os desafios do mundo
-                          real.
-                        </li>
-                        <li>
-                          <strong>
-                            Especialistas em Desenvolvimento Jovem:{" "}
-                          </strong>{" "}
-                          Guiado por mentores com experiência em formar a
-                          próxima geração.
-                        </li>
-                        <li>
-                          <strong>Acompanhamento Individualizado: </strong> Para
-                          uma transformação personalizada e real.
-                        </li>
-                      </ul>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-accent text-lg leading-relaxed font-bold ">
-                        Prepare seu filho(a) para o futuro, hoje. Clique no link
-                        da bio e conheça a Jornada 1: Fundamentos da Liderança.
-                      </p>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+            <div className="w-full">
+              <EducationFailsCarousel />
+            </div>
           </div>
         </section>
 
         {/* Seção 3: "Apresentando a Formação de Líderes Globais" */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="global-leaders"
+          className="bg-secondary10 w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -576,7 +519,10 @@ export default function Component() {
         </section>
 
         {/* Seção 4:  "Nossa Filosofia: Formando o Ser Humano por Trás da Candidatura" */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="philosophy"
+          className="w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -646,7 +592,10 @@ export default function Component() {
         </section>
 
         {/* Seção 5: Seção "A Jornada 1 em Detalhes" (O Produto Concreto e Imediato) */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="journey-1"
+          className="bg-secondary10 w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -654,7 +603,7 @@ export default function Component() {
                 Propósito e Estratégia
               </h2>
             </div>
-            <div className="grid gap-12 py-12 md:grid-cols-2 lg:grid-cols-3">
+            <div className="hidden gap-12 py-12 md:grid md:grid-cols-2 lg:grid-cols-3">
               <Card className="border-secondary35">
                 <CardHeader>
                   <h3 className="font-dm-sans flex items-center gap-3 text-2xl font-bold ">
@@ -874,11 +823,18 @@ export default function Component() {
                 <CardFooter />
               </Card>
             </div>
+
+            <div className="w-full md:hidden">
+              <JourneyCarousel />
+            </div>
           </div>
         </section>
 
         {/* Seção 6: Os Planos de Investimentos */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="investment-plans"
+          className="w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -1021,7 +977,10 @@ export default function Component() {
         </section>
 
         {/* Seção 7: Oportunidade única - Tornar-se um Pioneiro */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="pioneering-opportunity"
+          className="bg-secondary10 w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
@@ -1058,23 +1017,24 @@ export default function Component() {
         </section>
 
         {/* Seção 8: Tabela com o comparativo dos Planos */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
+        <section
+          id="plans-comparison"
+          className="w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+        >
           <div className="container mx-auto max-w-5xl px-4 md:px-6">
             <div className="mb-12 flex flex-col items-center space-y-8 text-center">
               <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
                 Ainda em dúvida? Veja um resumo comparativo:
               </h2>
 
-              <div>
+              <div className="hidden md:block">
                 <div className="bg-[#f6f6f6] py-16 lg:py-24">
                   <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-6xl">
                       <div className="mb-12 text-center">
                         <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">
                           Escolha Seu{" "}
-                          <span className="text-[#7f2ba6]">
-                            Plano de Formação
-                          </span>
+                          <span className="text-accent">Plano de Formação</span>
                         </h2>
                         <p className="text-foreground/70 mx-auto max-w-2xl text-lg">
                           Compare os benefícios de cada modalidade e encontre a
@@ -1085,7 +1045,7 @@ export default function Component() {
                       {/* Plans Table */}
                       <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
                         {/* Table Header */}
-                        <div className="grid grid-cols-4 bg-[#7f2ba6] text-white">
+                        <div className="bg-accent grid grid-cols-4 text-white">
                           <div className="p-6 text-lg font-semibold">
                             Benefícios
                           </div>
@@ -1254,42 +1214,124 @@ export default function Component() {
                   </div>
                 </div>
               </div>
+
+              <div className="md:hidden">
+                <div className="space-y-6 lg:hidden">
+                  {plansData.map((plan) => (
+                    <div
+                      key={plan.name}
+                      className={`overflow-hidden rounded-2xl bg-white shadow-xl ${
+                        plan.highlight ? "ring-primary relative ring-2" : ""
+                      }`}
+                    >
+                      {/* Card Header */}
+                      <div
+                        className={`p-6 text-center ${
+                          plan.highlight
+                            ? "to-secondary from-primary text-foreground bg-gradient-to-r"
+                            : "bg-accent text-white"
+                        }`}
+                      >
+                        <h3 className="mb-2 text-2xl font-bold">{plan.name}</h3>
+                        {plan.limitedSpots && (
+                          <div className="font-dm-sans inline-block rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white uppercase">
+                            {plan.limitedSpots}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Benefits List */}
+                      <div className="space-y-4 p-6">
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            6 Seminários Presenciais
+                          </span>
+                          {plan.benefits.seminarios ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            12 Preceptorias em Grupo Online
+                          </span>
+                          {plan.benefits.preceptorias ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            6 Feedbacks para os Pais
+                          </span>
+                          {plan.benefits.feedbacks ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            Análise de Perfil Comportamental
+                          </span>
+                          {plan.benefits.analise ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            Devolutiva Individual + PDI
+                          </span>
+                          {plan.benefits.devolutiva ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-foreground font-medium">
+                            2 Mentorias Individuais
+                          </span>
+                          {plan.benefits.mentorias ? (
+                            <Check className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <X className="h-5 w-5 text-red-500" />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Price Section */}
+                      <div
+                        className={`border-t border-gray-200 p-6 text-center ${plan.highlight ? "bg-primary/10" : "bg-gray-50"}`}
+                      >
+                        <div className="text-foreground mb-1 text-2xl font-bold">
+                          {plan.price}
+                        </div>
+                        <div className="text-foreground/70 text-sm">
+                          {plan.altPrice}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Seção 9: "Última Chamada para a Ação" (A conversão Final) */}
-        <section className="w-full  py-16 md:py-28 lg:py-36">
-          <div className="container mx-auto max-w-5xl px-4 md:px-6">
-            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
-              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
-                Prepare-o Não Apenas Para Entrar. Prepare-o Para Liderar.
-              </h2>
-              <p className="max-w-[800px] leading-relaxed  md:text-lg">
-                A admissão em uma universidade de elite é apenas o primeiro
-                passo. A verdadeira medida do sucesso é o impacto que seu
-                filho(a) terá no mundo. Dê a ele(a) as ferramentas para
-                construir uma vida de relevância, propósito e liderança.
-                Entendemos que esta é uma decisão importante. Estamos aqui para
-                responder a todas as suas perguntas e mostrar, em detalhes, como
-                nossa jornada pode ser o diferencial para o futuro da sua
-                família.
-              </p>
-              <h3 className="text-accent text-center text-3xl font-bold uppercase">
-                A jornada começa hoje.
-              </h3>
-              <NewLeadModal>
-                <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-2xl font-bold  shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5">
-                  AGENDAR UMA CONVERSA E INICIAR A JORNADA
-                </Button>
-              </NewLeadModal>
-            </div>
-          </div>
-        </section>
-
+        {/* Seção 9: Detalhes do evento */}
         <section
-          id="inscricao"
-          className="flex w-full items-center justify-center  py-16 text-center  md:py-28 lg:py-36"
+          id="event-details"
+          className="flex w-full items-center justify-center  px-4 py-16 text-center md:px-14  md:py-28 lg:py-36"
         >
           <div className="container mx-auto max-w-5xl space-y-10 px-4 md:px-6">
             <h2 className="font-dm-sans text-4xl leading-tight font-extrabold tracking-tight drop-shadow-lg sm:text-5xl md:text-6xl">
@@ -1347,6 +1389,41 @@ export default function Component() {
             </div>
           </div>
         </section>
+
+        {/* Seção 10: "Última Chamada para a Ação" (A conversão Final) */}
+        <section
+          className="bg-secondary10 w-full px-4 py-16 md:px-14 md:py-28 lg:py-36"
+          id="subscribe"
+        >
+          <div className="container mx-auto max-w-5xl px-4 md:px-6">
+            <div className="mb-12 flex flex-col items-center space-y-8 text-center">
+              <h2 className="font-dm-sans text-3xl leading-tight font-bold tracking-tight  sm:text-4xl md:text-5xl">
+                Prepare-o Não Apenas Para Entrar. Prepare-o Para Liderar.
+              </h2>
+              <p className="max-w-[800px] leading-relaxed  md:text-lg">
+                A admissão em uma universidade de elite é apenas o primeiro
+                passo. A verdadeira medida do sucesso é o impacto que seu
+                filho(a) terá no mundo. Dê a ele(a) as ferramentas para
+                construir uma vida de relevância, propósito e liderança.
+                Entendemos que esta é uma decisão importante. Estamos aqui para
+                responder a todas as suas perguntas e mostrar, em detalhes, como
+                nossa jornada pode ser o diferencial para o futuro da sua
+                família.
+              </p>
+              <h3 className="text-accent text-center text-3xl font-bold uppercase">
+                A jornada começa hoje.
+              </h3>
+              <NewLeadModal>
+                <Button className="font-dm-sans inline-flex h-16 transform animate-pulse items-center justify-center rounded-full px-12 text-base font-bold shadow-2xl transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:w-4/5 md:text-2xl">
+                  <span className="block md:hidden">AGENDAR UMA CONVERSA</span>
+                  <span className="hidden md:flex">
+                    AGENDAR UMA CONVERSA E INICIAR A JORNADA
+                  </span>
+                </Button>
+              </NewLeadModal>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-background font-dm-sans relative flex w-full shrink-0 flex-col items-center gap-4 px-4 py-8 sm:flex-row md:px-6">
@@ -1354,20 +1431,6 @@ export default function Component() {
           &copy; {new Date().getFullYear()} Instituto Van Veen & Be Kind. Todos
           os direitos reservados.
         </small>
-        {/* <nav className="flex gap-6 sm:ml-auto sm:gap-8">
-          <Link
-            href="#"
-            className="hover: text-sm underline-offset-4 transition-colors hover:underline"
-          >
-            Termos de Serviço
-          </Link>
-          <Link
-            href="#"
-            className="hover: text-sm underline-offset-4 transition-colors hover:underline"
-          >
-            Política de Privacidade
-          </Link>
-        </nav> */}
         <span className="absolute right-0 bottom-0 h-2 w-full bg-[repeating-linear-gradient(90deg,_#fad262_0,_#fad262_180px,_#ff791c_180px,_#ff791c_360px,_#fe5f48_360px,_#fe5f48_540px,_#7f2ba6_540px,_#7f2ba6_720px,_#4b67fe_720px,_#4b67fe_800px)]" />
       </footer>
     </div>

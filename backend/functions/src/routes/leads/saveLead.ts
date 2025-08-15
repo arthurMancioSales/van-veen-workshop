@@ -9,12 +9,7 @@ import { verifyExistingDoc } from "../../utils/verifyExistingDoc";
 import { newLeadRequestSchema } from "../../validations/leads/newLeadRequestValidation";
 
 const cors = corsLib({
-  // origin:
-  //   [
-  //     "https://workshop.vanveen.com.br",
-  //     "https://workshop.institutovanveen.com.br"
-  //   ],
-  origin: true,
+  origin: ["https://workshop.vanveen.com.br"],
 });
 
 export const saveLead = functions.https.onRequest((req, res) => {

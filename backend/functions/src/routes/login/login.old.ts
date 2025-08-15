@@ -7,7 +7,7 @@ import { AuthenticateUserProps } from "../../types/auth";
 import { authenticateUserRequestSchema } from "../../validations/auth/authenticateUserRequestValidation";
 
 const cors = corsLib({
-  origin: ["http://localhost:3000"],
+  origin: ["https://workshop.vanveen.com.br"],
   credentials: true,
 });
 

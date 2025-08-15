@@ -8,7 +8,7 @@ import { authenticateUserRequestSchema } from "../../validations/auth/authentica
 
 // Configuração CORS mais explícita
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["https://workshop.vanveen.com.br"],
 };
 
 const cors = corsLib(corsOptions);

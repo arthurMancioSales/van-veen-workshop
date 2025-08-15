@@ -6,13 +6,9 @@ import { HTTPResponse } from "../types";
 import { db } from "../utils/firebaseClient";
 import { verifyExistingDoc } from "../utils/verifyExistingDoc";
 import { verifyExistingDocSchema } from "../validations/verifyExistingDocValidation";
+
 const cors = corsLib({
-  // origin:
-  //   [
-  //     "https://workshop.vanveen.com.br",
-  //     "https://workshop.institutovanveen.com.br"
-  //   ],
-  origin: true,
+  origin: ["https://workshop.vanveen.com.br"],
 });
 
 export const verifyExistingDocRequest = functions.https.onRequest(

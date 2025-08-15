@@ -12,11 +12,9 @@ import { verifyExistingDoc } from "../../utils/verifyExistingDoc";
 import { newTicketRequestSchema } from "../../validations/tickets/newTicketRequestValidation";
 
 // Configuração CORS mais explícita
-const corsOptions = {
-  origin: true,
-};
-
-const cors = corsLib(corsOptions);
+const cors = corsLib({
+  origin: ["https://workshop.vanveen.com.br"],
+});
 
 export const process_payment = functions.https.onRequest((req, res) => {
   return cors(req, res, async () => {

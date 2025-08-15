@@ -10,12 +10,7 @@ import { newTicketRequestSchema } from "../../validations/tickets/newTicketReque
 import { authenticateRequest } from "../login/authenticateRequest";
 
 const cors = corsLib({
-  // origin:
-  //   [
-  //     "https://workshop.vanveen.com.br",
-  //     "https://workshop.institutovanveen.com.br"
-  //   ],
-  origin: true,
+  origin: ["https://workshop.vanveen.com.br"],
 });
 
 export const createTicket = functions.https.onRequest((req, res) => {

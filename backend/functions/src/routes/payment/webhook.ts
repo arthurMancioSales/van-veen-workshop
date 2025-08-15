@@ -20,12 +20,7 @@ import { db } from "../../utils/firebaseClient";
 import { validatePaymentSignature } from "./validatePaymentSignature";
 
 const cors = corsLib({
-  // origin:
-  //   [
-  //     "https://workshop.vanveen.com.br",
-  //     "https://workshop.institutovanveen.com.br"
-  //   ],
-  origin: true,
+  origin: ["https://workshop.vanveen.com.br"],
 });
 
 export const paymentWebhook = functions.https.onRequest((req, res) => {

@@ -8,12 +8,7 @@ import { db } from "../../utils/firebaseClient";
 import { authenticateRequest } from "../login/authenticateRequest";
 
 const cors = corsLib({
-  // origin:
-  //   [
-  //     "https://workshop.vanveen.com.br",
-  //     "https://workshop.institutovanveen.com.br"
-  //   ],
-  origin: true,
+  origin: ["https://workshop.vanveen.com.br"],
 });
 
 export const getTickets = functions.https.onRequest((req, res) => {
