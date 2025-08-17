@@ -563,7 +563,7 @@ export default function Component() {
                 </p>
                 <p className="leading-relaxed  md:text-lg">
                   <strong>Em seguida, construímos o propósito: </strong>
-                  através da
+                  através do
                   <strong>
                     {" "}
                     autoconhecimento, do estudo da história e de práticas
@@ -582,7 +582,7 @@ export default function Component() {
                   O resultado final é uma candidatura que não é um
                   &ldquo;produto&rdquo; montado para impressionar. É o reflexo
                   genuíno de um jovem que tem algo de valor a dizer ao mundo e
-                  que está preparado não a penas para ser admitido, mas para ser
+                  que está preparado não apenas para ser admitido, mas para ser
                   uma
                   <strong> boa influência no tempo em que vive.</strong>
                 </p>

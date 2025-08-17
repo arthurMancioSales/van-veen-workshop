@@ -13,7 +13,7 @@ const cors = corsLib({
 
 const secret = process.env.PASSWORD_SECRET || "default_secret_key";
 
-export const login = functions.https.onRequest((req, res) => {
+export const loginOld = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "");
     res.setHeader("Access-Control-Allow-Credentials", "true");
