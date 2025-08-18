@@ -428,7 +428,6 @@ export default function Component() {
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button
-                      disabled
                       variant="outline"
                       size="sm"
                       className="border-secondary/60 hover:bg-secondary/10 hover:text-secondary text-foreground"
@@ -462,12 +461,47 @@ export default function Component() {
                     <div className="space-y-6 p-4 pt-0">
                       <h4 className="mb-2 font-semibold">Sobre</h4>
                       <div className="max-h-[75vh] overflow-y-scroll">
-                        <small className="text-muted-foreground text-base leading-relaxed" />
+                        <small className="text-muted-foreground text-base leading-relaxed">
+                          Mãe de duas adolescentes, Catarina (15) e Carolina
+                          (14), Lilian entrelaça sua experiência pessoal à
+                          profissional. Com uma sólida trajetória de 30 anos no
+                          ambiente escolar, formada em Pedagogia e Psicologia,
+                          com especializações em Neurociência da Aprendizagem,
+                          Comunicação Não-Violenta e Inteligência Emocional,
+                          dedica e aprofunda seus estudos no desenvolvimento
+                          humano. Atua estrategicamente junto aos jovens, onde
+                          através da ferramenta do autoconhecimento, desenvolve
+                          e solidifica a autonomia, empatia e determinação. Ela
+                          acredita que, ao encontrar soluções para as
+                          adversidades, crianças e adolescentes desenvolvem a
+                          resiliência necessária para um futuro de superação e
+                          alcance de seus objetivos.
+                        </small>
                       </div>
                     </div>
                   </SheetContent>
                 </Sheet>
               </div>
+            </div>
+            <div className="flex w-full justify-between gap-16">
+              <iframe
+                className="aspect-[9/16] max-h-[800px]"
+                src="https://www.youtube.com/embed/St7op-IycqA"
+                title="Um Convite que Pode Mudar a Sua Vida (e sua Carreira)"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              />
+              <iframe
+                className="aspect-[9/16] max-h-[800px]"
+                src="https://www.youtube.com/embed/MmF1TRlZIs8"
+                title="O Segredo para Estudar Fora: Propósito e Valores Pessoais"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              />
             </div>
           </div>
         </section>

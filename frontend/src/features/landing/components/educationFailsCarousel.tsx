@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -200,11 +202,19 @@ export default function EducationFailsCarousel() {
                   </li>
                 </ul>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex flex-col items-center gap-2">
                 <p className="text-accent text-lg leading-relaxed font-bold ">
-                  Prepare seu filho(a) para o futuro, hoje. Clique no link da
-                  bio e conheça a Jornada 1: Fundamentos da Liderança.
+                  Prepare seu filho(a) para o futuro, hoje!
                 </p>
+                <Link href="#subscribe">
+                  <Button
+                    variant="default"
+                    className="font-dm-sans inline-flex h-14 w-full transform items-center justify-center rounded-full px-10 text-sm font-bold uppercase opacity-100 shadow-lg transition-all hover:scale-105 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                  >
+                    Agende uma conversa e conheça mais sobre a Formação de
+                    Líderes Globais
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </CarouselItem>
