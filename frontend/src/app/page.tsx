@@ -491,7 +491,7 @@ export default function Component() {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                allowFullScreen
               />
               <iframe
                 className="aspect-[9/16] max-h-[800px]"
@@ -500,7 +500,7 @@ export default function Component() {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                allowFullScreen
               />
             </div>
           </div>
